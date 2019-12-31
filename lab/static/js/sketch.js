@@ -1,6 +1,25 @@
-var song, fft;
-var a=0, count=0;
-var theta=0, thetacum=0;
+var song;
+var fft;
+var button;
+var a = 0;
+var count = 0;
+var theta = 0
+var thetacum = 0;
+var p,s,t,q;
+
+
+
+function setColor(colorSchema) {
+    song.stop(); // stop song if playing
+    clear(); // clear the canvas
+    song.playMode('restart'); // make sure song restarts
+    var color = JSON.parse(colorSchema.replace(/'/g, '"'));
+    p = color.p;
+    s = color.s;
+    t = color.t;
+    q = color.q;
+    a = 0; // reset the size
+}
 
 function toggleSong() {
   if (song.isPlaying()) {
@@ -10,16 +29,29 @@ function toggleSong() {
   }
 }
 
+function scall() {
+  button.style('display', 'block'); // show the toggle btn
+}
+
 function preload() {
   song = loadSound('/static/res/audio/BeethovenSymphony.mp3'); // default song
 }
 
 function handleFile(file) {
+  song.stop(); // stop song if playing
+  clear(); // clear the canvas
+  button.style('display', 'none'); // hide the input box for time being
   var fileURL=  file.data;
-  song = loadSound(file.data);
+  song = loadSound(fileURL, scall); // success callback func
+  song.playMode('restart'); // make sure song restarts
 }
 
 function setup() {
+
+  p = '#C92B68'
+  s = '#F74F70'
+  t = '#FF939B'
+  q = '#A61458'
   input = createFileInput(handleFile);
   input.style('position', 'absolute');
   input.style('top', '0');
@@ -37,8 +69,10 @@ function setup() {
   amplitude = new p5.Amplitude();
 }
 
+
+
 function draw() {
-  var color =['#C92B68','#F74F70','#FF939B', '#A61458'];
+  var color =[p,s,t,q];
   var spectrum = fft.analyze();
   strokeWeight(2);
   theta=(spectrum[20]+spectrum[60]+spectrum[100]+spectrum[140]+spectrum[180]+spectrum[220])*512/6 || theta;

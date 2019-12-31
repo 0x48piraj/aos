@@ -4,11 +4,15 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<title>Smell of the Songs</title>
+    <link rel="stylesheet" href="/static/css/radio.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 	<script src="//jdataview.github.io/dist/jdataview.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
+	<script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/static/js/sketch.js"></script>
+
 	<style>
 		body {
 			margin:0;
@@ -33,5 +37,27 @@
 </head>
 <body>
 <img height= "300" width= "300" id="ret" src="" />
+
+<input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
+<label for="red"><span class="red"></span></label>
+
+<input type="radio" name="color" id="green" value="{ 'p':'#21ba45','s':'#4dc86a','t':'#7ad68f','q':'#a6e3b5' }" />
+<label for="green"><span class="green"></span></label>
+
+<input type="radio" name="color" id="yellow" value="{ 'p':'#fbbd08','s':'#e2aa07','t':'#fdd76b','q':'#feebb5' }" />
+<label for="yellow"><span class="yellow"></span></label>
+
+<input type="radio" name="color" id="blue" value="{ 'p':'#2185d0','s':'#4d9dd9','t':'#7ab6e3','q':'#a6ceec' }" />
+<label for="blue"><span class="blue"></span></label>
+
+<input type="radio" name="color" id="purple" value="{ 'p':'#72248c','s':'#a333c8','t':'#b55cd3','q':'#c885de' }" />
+<label for="purple"><span class="purple"></span></label>
+
+<script type="text/javascript">
+	$('input[type="radio"]').on('change', function(e) {
+ 		  setColor(e.target.value); // color change subroutine
+	});
+</script>
+
 </body>
 </html>
