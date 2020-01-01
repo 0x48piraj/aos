@@ -7,6 +7,8 @@
 
 	<title>Smell of the Songs</title>
     <link rel="stylesheet" href="/static/css/radio.css">
+    <link rel='stylesheet' href='/static/css/lightgallery.css'>
+    <link rel="stylesheet" href="/static/css/gallery.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 	<script src="//jdataview.github.io/dist/jdataview.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
@@ -27,16 +29,9 @@
 		canvas {
 			margin:auto;
 		}
-		img {
-			position: absolute;
-			bottom: 0;
-			right: 0;
-			display: none;
-		}
 	</style>
 </head>
 <body>
-<img height= "300" width= "300" id="ret" src="" />
 
 <input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
 <label for="red"><span class="red"></span></label>
@@ -47,13 +42,59 @@
 <input type="radio" name="color" id="yellow" value="{ 'p':'#fbbd08','s':'#e2aa07','t':'#fdd76b','q':'#feebb5' }" />
 <label for="yellow"><span class="yellow"></span></label>
 
+<!--
+<input type="radio" name="color" id="olive" />
+<label for="olive"><span class="olive"></span></label>
+
+<input type="radio" name="color" id="orange" />
+<label for="orange"><span class="orange"></span></label>
+
+
+<input type="radio" name="color" id="teal" />
+<label for="teal"><span class="teal"></span></label>
+-->
 <input type="radio" name="color" id="blue" value="{ 'p':'#2185d0','s':'#4d9dd9','t':'#7ab6e3','q':'#a6ceec' }" />
 <label for="blue"><span class="blue"></span></label>
 
+<!-- <input type="radio" name="color" id="violet" />
+<label for="violet"><span class="violet"></span></label>
+ -->
 <input type="radio" name="color" id="purple" value="{ 'p':'#72248c','s':'#a333c8','t':'#b55cd3','q':'#c885de' }" />
 <label for="purple"><span class="purple"></span></label>
 
+<!-- <input type="radio" name="color" id="pink" />
+<label for="pink"><span class="pink"></span></label> -->
+
+<div class="cont">
+	<div class="lgallery">
+     <ul id="lightgallery">
+      <li style="display: none;" id= "ret-li" data-src=""
+      data-sub-html="">
+        <a href="">
+          <img id="ret-img" class="img-responsive" src="">
+          <div class="lgallery-poster">
+            <img src="/static/img/zoom.png">
+          </div>
+        </a>
+      </li>
+     </ul>
+     <span id="imsg" style="display: none;" class="small">Click on the thumbnail to view all generated viz.</span>
+    </div>
+</div>
+<script src="https://raw.githubusercontent.com/aadsm/JavaScript-ID3-Reader/master/dist/id3-minimized.js"></script>
+<script src='/static/js/lightgallery.js'></script>
+<script src='/static/js/lg-pager.js'></script>
+<script src='/static/js/lg-autoplay.js'></script>
+<script src='/static/js/lg-share.js'></script>
+<script src='/static/js/lg-fullscreen.js'></script>
+<script src='/static/js/lg-zoom.js'></script>
+<script src='/static/js/lg-hash.js'></script>
+<script src='/static/js/picturefill.min.js'></script>
+
 <script type="text/javascript">
+	// INIT GALLERY
+	lightGallery(document.getElementById('lightgallery'))
+
 	$('input[type="radio"]').on('change', function(e) {
  		  setColor(e.target.value); // color change subroutine
 	});
