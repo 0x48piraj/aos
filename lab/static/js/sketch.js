@@ -87,6 +87,7 @@ function setup() {
   //song.play();
   fft = new p5.FFT(0, 512);
   amplitude = new p5.Amplitude();
+  document.getElementById('dashboard').style.display = 'block'; // display the picker now
 }
 
 function draw() {

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/radio.css">
     <link rel='stylesheet' href='/static/css/lightgallery.css'>
     <link rel="stylesheet" href="/static/css/gallery.css">
+    <link rel="stylesheet" href="/static/css/loader.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 	<script src="//jdataview.github.io/dist/jdataview.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
@@ -16,9 +17,11 @@
 	<script type="text/javascript" src="/static/js/sketch.js"></script>
 
 	<style>
-		body {
+		html, body {
 			margin:0;
 			padding:0;
+            height: 100%;
+            width: 100%;
 			overflow: hidden;
 			display: flex;
             /* This centers our sketch horizontally. */
@@ -27,45 +30,99 @@
             align-items: center;
 		}
 		canvas {
-			margin:auto;
+			margin: auto;
 		}
+		.picker {
+			position: absolute;
+			top: 30px;
+			right: 0px;
+		}
+		#p5_loading {
+            background: rgba(249, 251, 255,0.6);
+            color: #ADAFB6;
+            padding: 20px;
+            box-sizing: border-box;
+            display: flex;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            min-height: 100vh;
+		    font-family: Roboto, Arial;
+		    justify-content: center;
+		    align-items: center;
+        }
 	</style>
 </head>
 <body>
 
-<input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
-<label for="red"><span class="red"></span></label>
+<!-- https://github.com/processing/p5.js/wiki/p5.js-overview#loading-screen -->
+<div id="p5_loading" class="loadingclass">
+<div class="boxes">
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<!-- <div class="loader-text">LOADING ...</div> -->
+</div>
 
-<input type="radio" name="color" id="green" value="{ 'p':'#21ba45','s':'#4dc86a','t':'#7ad68f','q':'#a6e3b5' }" />
-<label for="green"><span class="green"></span></label>
+<div id="dashboard" class="dashboard" style="display: none;">
 
-<input type="radio" name="color" id="yellow" value="{ 'p':'#fbbd08','s':'#e2aa07','t':'#fdd76b','q':'#feebb5' }" />
-<label for="yellow"><span class="yellow"></span></label>
+ <div class="picker">
+	<input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
+	<label for="red"><span class="red"></span></label>
 
-<!--
-<input type="radio" name="color" id="olive" />
-<label for="olive"><span class="olive"></span></label>
+	<input type="radio" name="color" id="green" value="{ 'p':'#21ba45','s':'#4dc86a','t':'#7ad68f','q':'#a6e3b5' }" />
+	<label for="green"><span class="green"></span></label>
 
-<input type="radio" name="color" id="orange" />
-<label for="orange"><span class="orange"></span></label>
+	<input type="radio" name="color" id="yellow" value="{ 'p':'#fbbd08','s':'#e2aa07','t':'#fdd76b','q':'#feebb5' }" />
+	<label for="yellow"><span class="yellow"></span></label>
+
+	<!--
+	<input type="radio" name="color" id="olive" />
+	<label for="olive"><span class="olive"></span></label>
+
+	<input type="radio" name="color" id="orange" />
+	<label for="orange"><span class="orange"></span></label>
 
 
-<input type="radio" name="color" id="teal" />
-<label for="teal"><span class="teal"></span></label>
--->
-<input type="radio" name="color" id="blue" value="{ 'p':'#2185d0','s':'#4d9dd9','t':'#7ab6e3','q':'#a6ceec' }" />
-<label for="blue"><span class="blue"></span></label>
+	<input type="radio" name="color" id="teal" />
+	<label for="teal"><span class="teal"></span></label>
+	-->
+	<input type="radio" name="color" id="blue" value="{ 'p':'#2185d0','s':'#4d9dd9','t':'#7ab6e3','q':'#a6ceec' }" />
+	<label for="blue"><span class="blue"></span></label>
 
-<!-- <input type="radio" name="color" id="violet" />
-<label for="violet"><span class="violet"></span></label>
- -->
-<input type="radio" name="color" id="purple" value="{ 'p':'#72248c','s':'#a333c8','t':'#b55cd3','q':'#c885de' }" />
-<label for="purple"><span class="purple"></span></label>
+	<!-- <input type="radio" name="color" id="violet" />
+	<label for="violet"><span class="violet"></span></label>
+	 -->
+	<input type="radio" name="color" id="purple" value="{ 'p':'#72248c','s':'#a333c8','t':'#b55cd3','q':'#c885de' }" />
+	<label for="purple"><span class="purple"></span></label>
 
-<!-- <input type="radio" name="color" id="pink" />
-<label for="pink"><span class="pink"></span></label> -->
+	<!-- <input type="radio" name="color" id="pink" />
+	<label for="pink"><span class="pink"></span></label> -->
+ </div>
 
-<div class="cont">
+ <div class="cont">
 	<div class="lgallery">
      <ul id="lightgallery">
       <li style="display: none;" id= "ret-li" data-src=""
@@ -80,7 +137,10 @@
      </ul>
      <span id="imsg" style="display: none;" class="small">Click on the thumbnail to view all generated viz.</span>
     </div>
+ </div>
+
 </div>
+
 <script src="https://raw.githubusercontent.com/aadsm/JavaScript-ID3-Reader/master/dist/id3-minimized.js"></script>
 <script src='/static/js/lightgallery.js'></script>
 <script src='/static/js/lg-pager.js'></script>
