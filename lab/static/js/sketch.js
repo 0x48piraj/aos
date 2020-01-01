@@ -25,8 +25,10 @@ function setColor(colorSchema) {
 function toggleSong() {
   if (song.isPlaying()) {
     song.pause();
+    document.getElementById('toggler').innerHTML = 'Play'; // play
   } else {
     song.play();
+    document.getElementById('toggler').innerHTML = 'Pause'; // pause
   }
 }
 
@@ -79,7 +81,8 @@ function setup() {
   
   createCanvas(700, 700, WEBGL);
   background(255)
-  button = createButton('toggle');
+  button = createButton('Play');
+  button.id('toggler');
   button.style('position', 'absolute');
   button.style('top', '0');
   button.style('right', '0');

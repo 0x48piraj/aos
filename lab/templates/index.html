@@ -15,6 +15,18 @@
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
 	<script type="text/javascript" src="/static/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="/static/js/sketch.js"></script>
+	<script type="text/javascript">
+		var limit = 699;          
+		if(window.innerWidth <= limit){
+		  document.location = "/mobile";
+		}
+		if (screen.width <= limit) {
+		  document.location = "/mobile";
+		}
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+		  document.location = "/mobile";
+		}
+	</script>
 
 	<style>
 		html, body {
@@ -36,6 +48,11 @@
 			position: absolute;
 			top: 30px;
 			right: 0px;
+		}
+		.cont {
+			position: absolute;
+			bottom: 10px;
+			right: 10px;
 		}
 		#p5_loading {
             background: rgba(249, 251, 255,0.6);
