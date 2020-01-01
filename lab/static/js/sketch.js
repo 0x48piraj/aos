@@ -1,6 +1,7 @@
 var song;
 var fft;
 var button;
+var rotSlider, shrSlider;
 var a = 0;
 var count = 0;
 var theta = 0
@@ -69,19 +70,27 @@ function handleFile(file) {
 }
 
 function setup() {
-
   p = '#C92B68'
   s = '#F74F70'
   t = '#FF939B'
   q = '#A61458'
+  createCanvas(700, 700, WEBGL);
+  background(255)
   input = createFileInput(handleFile);
   input.style('position', 'absolute');
   input.id('toggle-song');
   input.style('top', '0');
   input.style('right', '0');
-  
-  createCanvas(700, 700, WEBGL);
-  background(255)
+  rotSlider = createSlider(0.000001, 0.000005, 0.000001, 0.000001);
+  rotSlider.style('position', 'absolute');
+  rotSlider.style('top', '70px');
+  rotSlider.style('right', '10px');
+  rotSlider.style('width', '200px');
+  shrSlider = createSlider(0.009, 0.09, 0.009, 0.001);
+  shrSlider.style('position', 'absolute');
+  shrSlider.style('top', '95px');
+  shrSlider.style('right', '10px');
+  shrSlider.style('width', '200px');
   button = createButton('Play');
   button.id('toggler');
   button.style('position', 'absolute');
@@ -104,11 +113,11 @@ function draw() {
   if (song.isPlaying()) {
   let level = amplitude.getLevel();
   let size = map(level, 0, 1, 0, 200);
-  rotateY(cos(thetacum * 0.000001));
-  rotateX(sin(thetacum * 0.000001));
+  rotateY(cos(thetacum * rotSlider.value()));
+  rotateX(sin(thetacum * rotSlider.value()));
   stroke(color[constrain(int(size), 0,3)]);
   box(350-a*10);
-  a+=0.09;
+  a+=shrSlider.value();
   if (a>35) {
    count++
    if (count==1) {
