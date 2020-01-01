@@ -11,6 +11,7 @@ var reader = new FileReader();
 
 function setColor(colorSchema) {
     song.stop(); // stop song if playing
+    document.getElementById('toggler').innerHTML = 'Play';
     clear(); // clear the canvas
     song.playMode('restart'); // make sure song restarts
     var color = JSON.parse(colorSchema.replace(/'/g, '"'));
@@ -107,7 +108,7 @@ function draw() {
   rotateX(sin(thetacum * 0.000001));
   stroke(color[constrain(int(size), 0,3)]);
   box(350-a*10);
-  a+=0.009;
+  a+=0.09;
   if (a>35) {
    count++
    if (count==1) {
