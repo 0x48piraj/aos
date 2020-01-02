@@ -10,6 +10,7 @@
     <link rel='stylesheet' href='/static/css/lightgallery.css'>
     <link rel="stylesheet" href="/static/css/gallery.css">
     <link rel="stylesheet" href="/static/css/loader.css">
+    <link rel="stylesheet" href="/static/css/toggle.css">
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
 	<script src="//jdataview.github.io/dist/jdataview.js"></script>
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
@@ -160,6 +161,23 @@
     </div>
  </div>
 
+<div class="parent">
+  <div class="toggler3way">
+    <div id="axisAx" class="switcher Xaxis" onclick="change_axisA('Ax')">X</div>
+    <div id="axisAy" class="switcher Yaxis" onclick="change_axisA('Ay')">Y</div>
+    <div id="axisAz" class="switcher Zaxis" onclick="change_axisA('Az')">Z</div>
+     <div id="selectorA" class="selector"></div>
+  </div>
+  <br><br>
+  <div class="toggler3way">
+    <div id="axisBx" class="switcher Xaxis" onclick="change_axisB('Bx')">X</div>
+    <div id="axisBy" class="switcher Yaxis" onclick="change_axisB('By')">Y</div>
+    <div id="axisBz" class="switcher Zaxis" onclick="change_axisB('Bz')">Z</div>
+     <div id="selectorB" class="selector"></div>
+  </div>
+</div>
+
+
 </div>
 
 <script src="https://raw.githubusercontent.com/aadsm/JavaScript-ID3-Reader/master/dist/id3-minimized.js"></script>
@@ -179,6 +197,61 @@
 	$('input[type="radio"]').on('change', function(e) {
  		  setColor(e.target.value); // color change subroutine
 	});
+
+
+	// 3-way toggler for axisA
+	function change_axisA(axis){
+	  var axisAx = document.getElementById("axisAx");
+	  var axisAy = document.getElementById("axisAy");
+	  var axisAy = document.getElementById("axisAz");
+	  var selector = document.getElementById("selectorA");
+	  if (axis === "Ax"){
+	    selector.style.left = 0;
+	    selector.style.width = axisAx.clientWidth + "px";
+	    selector.style.backgroundColor = "#777777";
+	    selector.innerHTML = "X";
+	    axisA = "X" // setting the axis
+	  }else if (axis === "Ay"){
+	    selector.style.left = axisAx.clientWidth + "px";
+	    selector.style.width = axisAy.clientWidth + "px";
+	    selector.innerHTML = "Y";
+	    selector.style.backgroundColor = "#418d92";
+	    axisA = "Y" // setting the axis
+	  } else {
+	    selector.style.left = axisAx.clientWidth + axisAy.clientWidth + 1 + "px";
+	    selector.style.width = axisAy.clientWidth + "px";
+	    selector.innerHTML = "Z";
+	    selector.style.backgroundColor = "#4d7ea9";
+	    axisA = "Z" // setting the axis
+	  }
+	}
+
+	// 3-way toggler for axisB
+	function change_axisB(axis){
+	  var axisBx = document.getElementById("axisBx");
+	  var axisBy = document.getElementById("axisBy");
+	  var axisBy = document.getElementById("axisBz");
+	  var selector = document.getElementById("selectorB");
+	  if (axis === "Bx"){
+	    selector.style.left = 0;
+	    selector.style.width = axisBx.clientWidth + "px";
+	    selector.style.backgroundColor = "#777777";
+	    selector.innerHTML = "X";
+	    axisB = "X" // setting the axis
+	  }else if (axis === "By"){
+	    selector.style.left = axisBx.clientWidth + "px";
+	    selector.style.width = axisBy.clientWidth + "px";
+	    selector.innerHTML = "Y";
+	    selector.style.backgroundColor = "#418d92";
+	    axisB = "Y" // setting the axis
+	  } else {
+	    selector.style.left = axisBx.clientWidth + axisBy.clientWidth + 1 + "px";
+	    selector.style.width = axisBy.clientWidth + "px";
+	    selector.innerHTML = "Z";
+	    selector.style.backgroundColor = "#4d7ea9";
+	    axisB = "Z" // setting the axis
+	  }
+	}
 </script>
 
 </body>

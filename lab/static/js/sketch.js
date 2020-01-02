@@ -1,14 +1,24 @@
 var song;
 var fft;
 var button;
-var rotSlider, shrSlider;
+var rotSlider, shrSlider, strokeSlider;
 var a = 0;
 var count = 0;
 var theta = 0
 var thetacum = 0;
 var p,s,t,q;
+var color,spectrum,level,size;
 var title = 'Symphony No. 5 (1st movement)', artist, album, syear;
+var axisA = 'Y', axisB = 'X';
 var reader = new FileReader();
+const liHTML = `
+        <a href="">
+          <img id="ret-img" class="img-responsive" src="{embedImgSrc}">
+          <div class="lgallery-poster">
+            <img src="/static/img/zoom.png">
+          </div>
+        </a>
+     `;
 
 function setColor(colorSchema) {
     song.stop(); // stop song if playing
@@ -62,8 +72,7 @@ function handleFile(file) {
   song.stop(); // stop song if playing
   clear(); // clear the canvas
   button.style('display', 'none'); // hide the input box for time being
-  var fileURL=  file.data;
-  song = loadSound(fileURL, scall); // success callback func
+  song = loadSound(file.data, scall); // success callback func
   song.playMode('restart'); // make sure song restarts
   a = 0; // reset the size
   background(255)
@@ -81,16 +90,21 @@ function setup() {
   input.id('toggle-song');
   input.style('top', '0');
   input.style('right', '0');
-  rotSlider = createSlider(0.000001, 0.000005, 0.000001, 0.000001);
+  rotSlider = createSlider(0.000001, 0.000005, 0.000001, 0.000001); // rotation speed slider
   rotSlider.style('position', 'absolute');
   rotSlider.style('top', '70px');
   rotSlider.style('right', '10px');
   rotSlider.style('width', '200px');
-  shrSlider = createSlider(0.009, 0.09, 0.009, 0.001);
+  shrSlider = createSlider(0.009, 0.09, 0.009, 0.001); // shrink rate slider
   shrSlider.style('position', 'absolute');
   shrSlider.style('top', '95px');
   shrSlider.style('right', '10px');
   shrSlider.style('width', '200px');
+  strokeSlider = createSlider(1, 10, 2, 1); // stroke weight slider
+  strokeSlider.style('position', 'absolute');
+  strokeSlider.style('top', '120px');
+  strokeSlider.style('right', '10px');
+  strokeSlider.style('width', '200px');
   button = createButton('Play');
   button.id('toggler');
   button.style('position', 'absolute');
@@ -103,18 +117,35 @@ function setup() {
   document.getElementById('dashboard').style.display = 'block'; // display the picker now
 }
 
+function rotateCube(a, b) {
+  ( ( {
+    X: () => { rotateX(sin(thetacum * rotSlider.value())); },
+    Y: () => { rotateY(cos(thetacum * rotSlider.value())); },
+    Z: () => { rotateZ(cos(thetacum * rotSlider.value())); },
+  } )[ a ] || ( () => { console.log( 'Invalid Axis' ); } ) )();
+  ( ( {
+    X: () => { rotateX(sin(thetacum * rotSlider.value())); },
+    Y: () => { rotateY(cos(thetacum * rotSlider.value())); },
+    Z: () => { rotateZ(cos(thetacum * rotSlider.value())); },
+  } )[ b ] || ( () => { console.log( 'Invalid Axis' ); } ) )();
+}
+
 function draw() {
-  var color =[p,s,t,q];
-  var spectrum = fft.analyze();
-  strokeWeight(2);
+  color =[p,s,t,q];
+  spectrum = fft.analyze();
+  strokeWeight(strokeSlider.value());
   theta=(spectrum[20]+spectrum[60]+spectrum[100]+spectrum[140]+spectrum[180]+spectrum[220])*512/6 || theta;
   thetacum+=theta || thetacum;
   if (theta != 0) {
   if (song.isPlaying()) {
-  let level = amplitude.getLevel();
-  let size = map(level, 0, 1, 0, 200);
-  rotateY(cos(thetacum * rotSlider.value()));
-  rotateX(sin(thetacum * rotSlider.value()));
+  level = amplitude.getLevel();
+  size = map(level, 0, 1, 0, 200);
+  if (axisA !== "Y" && axisB !== "X") { // simple check to skip running the rotateCube func. every time
+    rotateCube(axisA, axisB);
+  } else {
+    rotateY(cos(thetacum * rotSlider.value()));
+    rotateX(sin(thetacum * rotSlider.value()));
+  }
   stroke(color[constrain(int(size), 0,3)]);
   box(350-a*10);
   a+=shrSlider.value();
@@ -138,15 +169,6 @@ function draw() {
   }
   }
 }
-
-const liHTML = `
-        <a href="">
-          <img id="ret-img" class="img-responsive" src="{embedImgSrc}">
-          <div class="lgallery-poster">
-            <img src="/static/img/zoom.png">
-          </div>
-        </a>
-     `;
 
 function imgPounder(src) {
   var li = document.createElement('li');
