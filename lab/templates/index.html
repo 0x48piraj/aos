@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Smell of the Songs</title>
+	<title>Lab &bull; AOS</title>
     <link rel="stylesheet" href="/static/css/radio.css">
     <link rel='stylesheet' href='/static/css/lightgallery.css'>
     <link rel="stylesheet" href="/static/css/gallery.css">
@@ -30,6 +30,12 @@
 	</script>
 
 	<style>
+		@font-face {
+		    font-family: 'Alphamusicman';
+		    src: url('/static/fonts/Alphamusicman.ttf') format('truetype');
+		    font-weight: normal;
+		    font-style: normal;
+		}
 		html, body {
 			margin:0;
 			padding:0;
@@ -44,16 +50,7 @@
 		}
 		canvas {
 			margin: auto;
-		}
-		.picker {
-			position: absolute;
-			top: 30px;
-			right: 0px;
-		}
-		.cont {
-			position: absolute;
-			bottom: 10px;
-			right: 10px;
+			bottom: 0;
 		}
 		.loader-text {
 			position: absolute;
@@ -72,6 +69,56 @@
 		    font-family: Roboto, Arial;
 		    justify-content: center;
 		    align-items: center;
+        }
+        #heading {
+        	top:0;
+        	left: 50%;
+        	margin-left: -300px;
+        	font-family: 'Alphamusicman';
+        }
+        #playground {
+        	width: 100%;
+        	height: 100%;
+        }
+        #dashboard {
+        	background-color: #111;
+        	box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+        	padding: 1.5rem 1rem;
+        	width: 20%;
+        	height: 100%;
+        	display: flex;
+        	flex-direction: column;
+        	justify-content: space-around;
+        }
+        #parea {
+        	width: 80%;
+        }
+        .picker {
+		  margin:auto;
+		  font-size:1em;
+		  font-family:sintony;
+		  height:2em;
+		  line-height:2em;
+		  border-radius:0.3em;
+		  background:#ccc;
+		  position:relative;
+		  display:block;
+		  float:left;
+		  background: rgb(43, 43, 43);
+		  padding: 0.2rem 0.1rem;
+        }
+        p {
+        	color: white;
+        }
+        #pclose {
+        	margin-bottom: 0;
+        }
+        .guardian {
+        	display: flex;
+        }
+        .cont {
+        	box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
+        	-webkit-box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
         }
 	</style>
 </head>
@@ -108,9 +155,20 @@
 <div class="loader-text">LOADING THE PLAYGROUND ...</div>
 </div>
 
-<div id="dashboard" class="dashboard" style="display: none;">
 
- <div class="picker">
+<div id="playground" style="display: none;">
+
+
+<div id="parea" class="parea">
+	<h1 id="heading">Music and Mathematics are eternal. Aroma of the Songs.</h1>
+</div>
+
+<div id="dashboard" class="dashboard">
+
+<div id="controls" class="controls">
+<div id="exec"></div>
+<p id="pclose">Pick your favourite color &rarr;</p>
+<div class="picker">
 	<input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
 	<label for="red"><span class="red"></span></label>
 
@@ -143,6 +201,40 @@
 	<!-- <input type="radio" name="color" id="pink" />
 	<label for="pink"><span class="pink"></span></label> -->
  </div>
+</div>
+
+<div id="controllers">
+ <div id="sliders">
+ 	<p id="pclose">Rotation speed slider &rarr;</p>
+ 	<div id="s1"></div>
+ 	<p id="pclose">Shrink rate slider &rarr;</p>
+ 	<div id="s2"></div>
+ 	<p id="pclose">Stroke weight slider &rarr;</p>
+ 	<div id="s3"></div>
+ </div>
+ <br>
+ <div class="parent">
+ <div class="guardian">
+ 	<p>RTA:</p> <!-- Rotation Type A -->
+  <div class="toggler3way">
+    <div id="axisAx" class="switcher Xaxis" onclick="change_axisA('Ax')">X</div>
+    <div id="axisAy" class="switcher Yaxis" onclick="change_axisA('Ay')">Y</div>
+    <div id="axisAz" class="switcher Zaxis" onclick="change_axisA('Az')">Z</div>
+     <div id="selectorA" class="selector"></div>
+  </div>
+ </div>
+  <br><br>
+  <div class="guardian">
+  <p>RTB:</p> <!-- Rotation Type B -->
+  <div class="toggler3way">
+    <div id="axisBx" class="switcher Xaxis" onclick="change_axisB('Bx')">X</div>
+    <div id="axisBy" class="switcher Yaxis" onclick="change_axisB('By')">Y</div>
+    <div id="axisBz" class="switcher Zaxis" onclick="change_axisB('Bz')">Z</div>
+     <div id="selectorB" class="selector"></div>
+  </div>
+  </div>
+ </div>
+</div>
 
  <div class="cont">
 	<div class="lgallery">
@@ -155,32 +247,16 @@
             <img src="/static/img/zoom.png">
           </div>
         </a>
+        <span id="imsg" style="display: none;" class="small">Click on the thumbnail to view all generated viz.</span>
       </li>
      </ul>
-     <span id="imsg" style="display: none;" class="small">Click on the thumbnail to view all generated viz.</span>
+     
     </div>
  </div>
 
-<div class="parent">
-  <div class="toggler3way">
-    <div id="axisAx" class="switcher Xaxis" onclick="change_axisA('Ax')">X</div>
-    <div id="axisAy" class="switcher Yaxis" onclick="change_axisA('Ay')">Y</div>
-    <div id="axisAz" class="switcher Zaxis" onclick="change_axisA('Az')">Z</div>
-     <div id="selectorA" class="selector"></div>
-  </div>
-  <br><br>
-  <div class="toggler3way">
-    <div id="axisBx" class="switcher Xaxis" onclick="change_axisB('Bx')">X</div>
-    <div id="axisBy" class="switcher Yaxis" onclick="change_axisB('By')">Y</div>
-    <div id="axisBz" class="switcher Zaxis" onclick="change_axisB('Bz')">Z</div>
-     <div id="selectorB" class="selector"></div>
-  </div>
+</div>
 </div>
 
-
-</div>
-
-<script src="https://raw.githubusercontent.com/aadsm/JavaScript-ID3-Reader/master/dist/id3-minimized.js"></script>
 <script src='/static/js/lightgallery.js'></script>
 <script src='/static/js/lg-pager.js'></script>
 <script src='/static/js/lg-autoplay.js'></script>

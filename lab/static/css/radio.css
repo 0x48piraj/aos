@@ -44,7 +44,6 @@ label {
   display: inline-block;
   width: 25px;
   height: 25px;
-  margin-right: 10px;
   cursor: pointer;
 }
 label:hover span {

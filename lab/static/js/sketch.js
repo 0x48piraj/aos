@@ -71,6 +71,7 @@ function preload() {
 function handleFile(file) {
   song.stop(); // stop song if playing
   clear(); // clear the canvas
+  document.getElementById('toggler').innerHTML = 'Play';
   button.style('display', 'none'); // hide the input box for time being
   song = loadSound(file.data, scall); // success callback func
   song.playMode('restart'); // make sure song restarts
@@ -83,38 +84,41 @@ function setup() {
   s = '#F74F70'
   t = '#FF939B'
   q = '#A61458'
-  createCanvas(700, 700, WEBGL);
+  cnv = createCanvas(700, 700, WEBGL);
+  cnv.parent("parea");
   background(255)
+  document.getElementById('playground').style.display = 'flex'; // display the picker now
+
+  button = createButton('Play');
+  button.parent("exec");
+  button.id('toggler');
+  /*button.style('position', 'absolute');*/
+
+  button.mousePressed(toggleSong);
   input = createFileInput(handleFile);
-  input.style('position', 'absolute');
+  input.parent("exec");
+  /*input.style('position', 'absolute');*/
   input.id('toggle-song');
-  input.style('top', '0');
-  input.style('right', '0');
+
   rotSlider = createSlider(0.000001, 0.000005, 0.000001, 0.000001); // rotation speed slider
-  rotSlider.style('position', 'absolute');
-  rotSlider.style('top', '70px');
-  rotSlider.style('right', '10px');
+  rotSlider.parent("s1");
+  /*rotSlider.style('position', 'absolute');*/
+
   rotSlider.style('width', '200px');
   shrSlider = createSlider(0.009, 0.09, 0.009, 0.001); // shrink rate slider
-  shrSlider.style('position', 'absolute');
-  shrSlider.style('top', '95px');
-  shrSlider.style('right', '10px');
+  shrSlider.parent("s2");
+  /*shrSlider.style('position', 'absolute');*/
+
   shrSlider.style('width', '200px');
   strokeSlider = createSlider(1, 10, 2, 1); // stroke weight slider
-  strokeSlider.style('position', 'absolute');
-  strokeSlider.style('top', '120px');
-  strokeSlider.style('right', '10px');
+  strokeSlider.parent("s3");
+  /*strokeSlider.style('position', 'absolute');*/
+
   strokeSlider.style('width', '200px');
-  button = createButton('Play');
-  button.id('toggler');
-  button.style('position', 'absolute');
-  button.style('top', '0');
-  button.style('right', '0');
-  button.mousePressed(toggleSong);
+
   //song.play();
   fft = new p5.FFT(0, 512);
   amplitude = new p5.Amplitude();
-  document.getElementById('dashboard').style.display = 'block'; // display the picker now
 }
 
 function rotateCube(a, b) {
