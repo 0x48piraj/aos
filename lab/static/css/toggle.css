@@ -137,3 +137,82 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #ffffff;
 }
+
+/* Radio CSS Stylesheet */
+
+
+.file-input {
+  display: flex;
+  text-align: center;
+  background: rgb(43, 43, 43);
+  padding: 5px;
+  width: 200px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.file-input > [type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.file-input > .button {
+  display: inline-block;
+  cursor: pointer;
+  background: #eee;
+  padding: 8px 16px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.file-input:hover > .button {
+  background: dodgerblue;
+  color: white;
+}
+
+.file-input > .label {
+  color: #00E676;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  opacity: .3;
+}
+
+.file-input.-chosen > .label {
+  opacity: 1;
+}
+
+/* Play/Pause Button Stylesheet */
+
+
+#playbtn {
+  display: flex;
+  justify-content: center;
+}
+
+
+button {
+  width: 120px;
+  box-sizing: border-box;
+  padding: 30px;
+  /* margin: 0 15px; */
+  border: none;
+  outline: none;
+  
+  fill: #00E676;
+  background-color: rgb(43,43,43);
+  
+  border-radius: 50%;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}

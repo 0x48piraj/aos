@@ -120,6 +120,12 @@
         	box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
         	-webkit-box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
         }
+        #exec {
+        	display: flex;
+        	flex-direction: column;
+        	justify-content: space-around;
+        	height: 200px;
+        }
 	</style>
 </head>
 <body>
@@ -166,7 +172,13 @@
 <div id="dashboard" class="dashboard">
 
 <div id="controls" class="controls">
-<div id="exec"></div>
+<div id="exec">
+	<div id="playbtn"></div>
+	<div id="file-input" class='file-input'>
+	  <span class='button'>Choose</span>
+	  <span class='label' data-js-label>No file selected</label>
+	</div>
+</div>
 <p id="pclose">Pick your favourite color &rarr;</p>
 <div class="picker">
 	<input type="radio" name="color" id="red" value="{ 'p':'#C92B68','s':'#F74F70','t':'#FF939B','q':'#A61458' }" />
@@ -328,6 +340,117 @@
 	    axisB = "Z" // setting the axis
 	  }
 	}
+
+	// File Input Handler (https://www.quirksmode.org/dom/inputfile.html)
+	window.onload = function(){
+    document.getElementById("file-input").onclick=function() {
+    
+		var inputs = document.querySelectorAll('.file-input')
+
+		for (var i = 0, len = inputs.length; i < len; i++) {
+		  customInput(inputs[i])
+		}
+
+		function customInput (el) {
+		  const fileInput = el.querySelector('[type="file"]')
+		  const label = el.querySelector('[data-js-label]')
+		  
+		  fileInput.onchange =
+		  fileInput.onmouseout = function () {
+		    if (!fileInput.value) return
+		    
+		    var value = fileInput.value.replace(/^.*[\\\/]/, '')
+		    el.className += ' -chosen'
+		    label.innerText = value
+		  }
+		}
+	  }
+	}
+
+	// Play/Pause SVG Morphing
+	function MorphedSVG(svgId, firstPath, secondPath, styleClass){
+		this.elem = document.getElementById(svgId);
+		this.path = this.elem.getElementsByTagName('path')[0];
+		this.anim = this.path.getElementsByTagName('animate')[0];
+		this.animDur = parseFloat(this.anim.getAttribute('dur')) * 1000;
+
+		this.originalPath = this.path.getAttribute('d');
+		this.firstPath = firstPath;
+		this.secondPath = secondPath;
+		this.state = MorphedSVG.STATE_1;
+	  this.styleClass = styleClass;
+
+		this.timeout;
+	}
+
+	MorphedSVG.STATE_1 = true;
+	MorphedSVG.STATE_2 = false;
+
+	MorphedSVG.prototype.toState = function(state){
+		if(state == this.state) return;
+		
+		switch(state){
+		case MorphedSVG.STATE_1:
+			this._set(this.firstPath, this.secondPath, this.firstPath);
+	    this.styleClass ? this.elem.classList.add(this.styleClass) : null;
+			break;
+
+		case MorphedSVG.STATE_2:
+			this._set(this.secondPath, this.firstPath, this.secondPath);
+	    this.styleClass ? this.elem.classList.remove(this.styleClass) : null;
+			break;
+		}
+
+		this.state = state;
+		this.anim.beginElement();
+
+		if(this.originalPath && this.animDur){
+			this.timeout ? clearTimeout(this.timeout) : null;
+			this.timeout = setTimeout(this._resetOriginal.bind(this), this.animDur);
+		}
+	}
+
+	MorphedSVG.prototype.toggle = function(){
+		this.toState(!this.state);
+	}
+
+	MorphedSVG.prototype._set = function(d, from, to){
+		this.path.setAttribute('d', d);
+		this.anim.setAttribute('from', from);
+		this.anim.setAttribute('to', to);
+	}
+
+	MorphedSVG.prototype._resetOriginal = function(){
+		if(this.state == MorphedSVG.STATE_1)
+			this._set(this.originalPath, '', '');
+	}
+
+
+	////////////////////////////////////////////////
+
+	function waitForElement(elementId, callBack){
+	  window.setTimeout(function(){
+	    var element = document.getElementById(elementId);
+	    if(element){
+	      callBack(elementId, element);
+	    }else{
+	      waitForElement(elementId, callBack);
+	    }
+	  },500)
+	}
+    
+	waitForElement("play-svg",function(){
+		const PAUSE_PATH_2 = 'M9,8   L14,8  14,24 9,24 9,8    M19,8  L24,8  24,24 19,24 19,8',
+				  PLAY_PATH_2  = 'M26,16 L26,16 11,16 11,8 26,16  M26,16 L26,16 11,24 11,16 26,16';
+
+		var theButtonVer = new MorphedSVG(
+		  'play-svg', PLAY_PATH_2, PAUSE_PATH_2
+		);
+
+		theButtonVer.elem.parentNode.addEventListener('click', function(){
+		  this.toggle();
+		}.bind(theButtonVer));
+	});
 </script>
 
 </body>

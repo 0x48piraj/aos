@@ -19,10 +19,19 @@ const liHTML = `
           </div>
         </a>
      `;
+const BtnSVG = `
+        <svg id='play-svg' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+          <path           d='M11,8 L26,16 11,24 11,8'>
+            <animate attributeName='d' fill='freeze' dur='0.2s'
+                     calc-mode='spline' keySplines='0.19 1 0.22 1'/>
+          </path>
+        </svg>
+     `;
+
 
 function setColor(colorSchema) {
     song.stop(); // stop song if playing
-    document.getElementById('toggler').innerHTML = 'Play';
+    /*document.getElementById('toggler').innerHTML = 'Play';*/
     clear(); // clear the canvas
     song.playMode('restart'); // make sure song restarts
     var color = JSON.parse(colorSchema.replace(/'/g, '"'));
@@ -37,10 +46,10 @@ function setColor(colorSchema) {
 function toggleSong() {
   if (song.isPlaying()) {
     song.pause();
-    document.getElementById('toggler').innerHTML = 'Play'; // play
+    /*document.getElementById('toggler').innerHTML = 'Play'; // play*/
   } else {
     song.play();
-    document.getElementById('toggler').innerHTML = 'Pause'; // pause
+    /*document.getElementById('toggler').innerHTML = 'Pause'; // pause*/
   }
 }
 
@@ -71,7 +80,7 @@ function preload() {
 function handleFile(file) {
   song.stop(); // stop song if playing
   clear(); // clear the canvas
-  document.getElementById('toggler').innerHTML = 'Play';
+  /*document.getElementById('toggler').innerHTML = 'Play';*/
   button.style('display', 'none'); // hide the input box for time being
   song = loadSound(file.data, scall); // success callback func
   song.playMode('restart'); // make sure song restarts
@@ -89,14 +98,14 @@ function setup() {
   background(255)
   document.getElementById('playground').style.display = 'flex'; // display the picker now
 
-  button = createButton('Play');
-  button.parent("exec");
+  button = createButton(BtnSVG);
+  button.parent("playbtn");
   button.id('toggler');
   /*button.style('position', 'absolute');*/
 
   button.mousePressed(toggleSong);
   input = createFileInput(handleFile);
-  input.parent("exec");
+  input.parent("file-input");
   /*input.style('position', 'absolute');*/
   input.id('toggle-song');
 
