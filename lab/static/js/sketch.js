@@ -31,7 +31,6 @@ const BtnSVG = `
 
 function setColor(colorSchema) {
     song.stop(); // stop song if playing
-    /*document.getElementById('toggler').innerHTML = 'Play';*/
     clear(); // clear the canvas
     song.playMode('restart'); // make sure song restarts
     var color = JSON.parse(colorSchema.replace(/'/g, '"'));
@@ -46,10 +45,8 @@ function setColor(colorSchema) {
 function toggleSong() {
   if (song.isPlaying()) {
     song.pause();
-    /*document.getElementById('toggler').innerHTML = 'Play'; // play*/
   } else {
     song.play();
-    /*document.getElementById('toggler').innerHTML = 'Pause'; // pause*/
   }
 }
 
@@ -80,7 +77,6 @@ function preload() {
 function handleFile(file) {
   song.stop(); // stop song if playing
   clear(); // clear the canvas
-  /*document.getElementById('toggler').innerHTML = 'Play';*/
   button.style('display', 'none'); // hide the input box for time being
   song = loadSound(file.data, scall); // success callback func
   song.playMode('restart'); // make sure song restarts
@@ -97,35 +93,35 @@ function setup() {
   cnv.parent("parea");
   background(255)
   document.getElementById('playground').style.display = 'flex'; // display the picker now
-
+  const text = baffle(".data"); // HEADING ANIMATION
+  text.set({
+    characters: '░▒░ ░██░> ████▓ >█> ░/█>█ ██░░ █<▒ ▓██░ ░/░▒',
+          speed: 120
+  });
+  text.start();
+  text.reveal(4000);
   button = createButton(BtnSVG);
   button.parent("playbtn");
   button.id('toggler');
-  /*button.style('position', 'absolute');*/
 
   button.mousePressed(toggleSong);
   input = createFileInput(handleFile);
   input.parent("file-input");
-  /*input.style('position', 'absolute');*/
   input.id('toggle-song');
 
   rotSlider = createSlider(0.000001, 0.000005, 0.000001, 0.000001); // rotation speed slider
   rotSlider.parent("s1");
-  /*rotSlider.style('position', 'absolute');*/
 
   rotSlider.style('width', '200px');
   shrSlider = createSlider(0.009, 0.09, 0.009, 0.001); // shrink rate slider
   shrSlider.parent("s2");
-  /*shrSlider.style('position', 'absolute');*/
 
   shrSlider.style('width', '200px');
   strokeSlider = createSlider(1, 10, 2, 1); // stroke weight slider
   strokeSlider.parent("s3");
-  /*strokeSlider.style('position', 'absolute');*/
 
   strokeSlider.style('width', '200px');
 
-  //song.play();
   fft = new p5.FFT(0, 512);
   amplitude = new p5.Amplitude();
 }

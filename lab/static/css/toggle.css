@@ -166,7 +166,7 @@ input[type=range]:focus::-ms-fill-upper {
   display: inline-block;
   cursor: pointer;
   background: #eee;
-  padding: 8px 16px;
+  padding: 4px 16px;
   border-radius: 2px;
   margin-right: 8px;
 }
@@ -198,9 +198,9 @@ input[type=range]:focus::-ms-fill-upper {
 
 
 button {
-  width: 120px;
+  width: 90px;
   box-sizing: border-box;
-  padding: 30px;
+  padding: 20px;
   /* margin: 0 15px; */
   border: none;
   outline: none;
