@@ -4,11 +4,10 @@
 <b>Aroma of the Songs — Visualizing music in the form of intricate rose petals using moving cube traces</b><br><br>
   <img alt="SmellTheSongs Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Tumbara.jpg/330px-Tumbara.jpg" width="400"><br>
 <b>
-  Visit the <a href="https://lab.aroma.ofthesongs.com/">playground</a> to fiddle around with your favourite songs.<br>
+  Visit the <a href="https://lab.aroma.ofthesongs.com/">Playground</a> to fiddle around with your favourite songs.<br>
   Visit Project's <a href="https://aroma.ofthesongs.com/">Home</a> for exploring this project.<br><br>
 </b>
 </p>
-
 
 # Brief History
 
@@ -24,7 +23,16 @@ To experiment with the numbers and to customise the output rose, the playground 
 
 # Internal Workings
 
-Algorithm behind this project manoeuvres the cube using a modified Rose mathematical equation and FFT Spectrum Analysis. The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called Processing which handles the movement of the cube.
+Algorithm behind this project manoeuvres the cube using a modified Rose mathematical equation and FFT Spectrum Analysis.
+
+The proto equations which control the movement of the cube and create intricate realistic looking rose petals are,
+
+```
+rotateXorYorZ(cos(A * B)) and
+rotateXorYorZ(sin(A * B))
+```
+
+The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called Processing which handles the movement of the cube.
 
 The source code can be found inside the `src/` directory. It is packaged as a Flask application. You can run it by installing Flask and then running the web app by calling,
 
