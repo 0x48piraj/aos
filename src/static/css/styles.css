@@ -1,0 +1,556 @@
+@import url(https://fonts.googleapis.com/css?family=Sintony);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300);
+
+* {
+  box-sizing: border-box;
+}
+
+.toggler3way{
+  display: block;
+  margin:auto;
+  font-size:1em;
+  font-family:sintony;
+  height:2em;
+  line-height:2em;
+  border-radius:0.3em;
+  background:#ccc;
+  position:relative;
+  float:left;
+  background: rgb(43, 43, 43);
+  border: 2px solid #00E676;
+}
+
+.switcher.Xaxis,
+.switcher.Yaxis,
+.switcher.Zaxis{
+  cursor:pointer;
+  position:relative;
+  display:block;
+  float:left;
+  -webkit-transition: 300ms ease-out;
+  -moz-transition: 300ms ease-out;
+  transition: 300ms ease-out;
+  padding: 0 1em;
+  color: white;
+}
+.selector{
+  top:-2px;
+  text-align:center;
+  position:absolute;
+  width:0;
+  box-sizing:border-box;
+  -webkit-transition: 300ms ease-out;
+  -moz-transition: 300ms ease-out;
+  transition: 300ms ease-out;
+  border-radius:0.3em;  
+  color:white;
+  /* 
+  -moz-box-shadow: 0px 2px 7px 0px #9b9b9b;
+  -webkit-box-shadow: 0px 2px 7px 0px #9b9b9b;
+  -o-box-shadow: 0px 2px 7px 0px #9b9b9b;
+  box-shadow: 0px 2px 7px 0px #9b9b9b;
+  filter:progid:DXImageTransform.Microsoft.Shadow(color=#9b9b9b, Direction=180, Strength=13);
+   */
+}
+
+/* Sliders CSS Stylesheet */
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 15px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: rgba(36, 36, 36);
+
+  border: 0.2px solid #010101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #00e676, 0px 0px 1px #00ff83;
+  border: 1px solid rgba(0, 230, 118, 0.46);
+  height: 27px;
+  width: 16px;
+  border-radius: 3px;
+  background: rgba(0, 230, 118, 0.73);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10.2px;
+}
+/*
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #ffffff;
+}
+*/
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 6.6px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #020000, 0px 0px 1px #1c0000;
+  background: #ffffff;
+  border-radius: 25px;
+  border: 0px solid #010101;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #00e676, 0px 0px 1px #00ff83;
+  border: 1px solid rgba(0, 230, 118, 0.46);
+  height: 27px;
+  width: 16px;
+  border-radius: 3px;
+  background: rgba(0, 230, 118, 0.73);
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 6.6px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #808080;
+  border: 0px solid #010101;
+  border-radius: 50px;
+  box-shadow: 1px 1px 1px #020000, 0px 0px 1px #1c0000;
+}
+input[type=range]::-ms-fill-upper {
+  background: #ffffff;
+  border: 0px solid #010101;
+  border-radius: 50px;
+  box-shadow: 1px 1px 1px #020000, 0px 0px 1px #1c0000;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 1px 1px 1px #00e676, 0px 0px 1px #00ff83;
+  border: 1px solid rgba(0, 230, 118, 0.46);
+  height: 27px;
+  width: 16px;
+  border-radius: 3px;
+  background: rgba(0, 230, 118, 0.73);
+  cursor: pointer;
+  height: 6.6px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #ffffff;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #ffffff;
+}
+
+/* Radio CSS Stylesheet */
+
+
+.file-input {
+  display: flex;
+  text-align: center;
+  padding: 5px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.file-input > [type='file'] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.file-input > .button {
+  display: inline-block;
+  cursor: pointer;
+  background: #eee;
+  padding: 4px 16px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.file-input:hover > .button {
+  background: dodgerblue;
+  color: white;
+}
+
+.file-input > .label {
+  color: #00E676;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  opacity: .3;
+}
+
+.file-input.-chosen > .label {
+  opacity: 1;
+}
+
+/* Play/Pause Button Stylesheet */
+
+
+#playbtn {
+  display: flex;
+  justify-content: center;
+}
+
+
+button {
+  width: 90px;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0 15px;
+  border: none;
+  outline: none;
+  
+  fill: #00E676;
+  background-color: rgb(43,43,43);
+  
+  border-radius: 50%;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.rotate {
+  transform: rotate(90deg);
+}
+
+/* Box Stylesheet */
+
+.boxes {
+    height: 32px;
+    width: 32px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    margin-top: 32px;
+    -webkit-transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+    transform: rotateX(60deg) rotateZ(45deg) rotateY(0deg) translateZ(0px);
+}
+.boxes .box {
+    width: 32px;
+    height: 32px;
+    top: 0px;
+    left: 0;
+    position: absolute;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+
+
+.boxes .box:nth-child(1) {
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+    -webkit-animation: box1 1s linear infinite;
+    animation: box1 1s linear infinite;
+}
+.boxes .box:nth-child(2) {
+    -webkit-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+    -webkit-animation: box2 1s linear infinite;
+    animation: box2 1s linear infinite;
+}
+.boxes .box:nth-child(3) {
+    -webkit-transform: translate(100%, 100%);
+    transform: translate(100%, 100%);
+    -webkit-animation: box3 1s linear infinite;
+    animation: box3 1s linear infinite;
+}
+.boxes .box:nth-child(4) {
+    -webkit-transform: translate(200%, 0);
+    transform: translate(200%, 0);
+    -webkit-animation: box4 1s linear infinite;
+    animation: box4 1s linear infinite;
+}
+
+
+
+.boxes .box > div {
+    background: #5C8DF6;
+    --translateZ: 15.5px;
+    --rotateY: 0deg;
+    --rotateX: 0deg;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #5C8DF6;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    -webkit-transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+    transform: rotateY(var(--rotateY)) rotateX(var(--rotateX)) translateZ(var(--translateZ));
+}
+
+.boxes .box > div:nth-child(1) {
+    top: 0;
+    left: 0;
+    background: #5C8DF6;
+}
+.boxes .box > div:nth-child(2) {
+    background: #145af2;
+    right: 0;
+    --rotateY: 90deg;
+}
+.boxes .box > div:nth-child(3) {
+    background: #447cf5;
+    --rotateX: -90deg;
+}
+.boxes .box > div:nth-child(4) {
+    background: #DBE3F4;
+    top: 0;
+    left: 0;
+    --translateZ: -90px;
+}
+
+
+@keyframes box1 {
+    0%,
+    50% {
+        transform: translate(100%, 0);
+    }
+    100% {
+        transform: translate(200%, 0);
+    }
+}
+
+@keyframes box2 {
+    0%{
+        transform: translate(0, 100%);
+    }
+    50% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(100%, 0);
+    }
+}
+
+@keyframes box3 {
+    0%,
+    50% {
+        transform: translate(100%, 100%);
+    }
+    100% {
+        transform: translate(0, 100%);
+    }
+}
+
+@keyframes box4 {
+    0%{
+        transform: translate(200%, 0);
+    }
+    50% {
+        transform: translate(200%, 100%);
+    }
+    100% {
+        transform: translate(100%, 100%);
+    }
+}
+
+/* Radio Stylesheet */
+
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"]:checked + label span {
+  transform: scale(1.25);
+}
+input[type="radio"]:checked + label .red {
+  border: 2px solid #711313;
+}
+input[type="radio"]:checked + label .orange {
+  border: 2px solid #873a08;
+}
+input[type="radio"]:checked + label .yellow {
+  border: 2px solid #816102;
+}
+input[type="radio"]:checked + label .olive {
+  border: 2px solid #505a0b;
+}
+input[type="radio"]:checked + label .green {
+  border: 2px solid #0e4e1d;
+}
+input[type="radio"]:checked + label .teal {
+  border: 2px solid #003633;
+}
+input[type="radio"]:checked + label .blue {
+  border: 2px solid #103f62;
+}
+input[type="radio"]:checked + label .violet {
+  border: 2px solid #321a64;
+}
+input[type="radio"]:checked + label .purple {
+  border: 2px solid #501962;
+}
+input[type="radio"]:checked + label .pink {
+  border: 2px solid #851554;
+}
+
+label {
+  display: table-cell;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+label:hover span {
+  transform: scale(1.25);
+}
+label span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform .2s ease-in-out;
+}
+label span.red {
+  background: #DB2828;
+}
+label span.orange {
+  background: #F2711C;
+}
+label span.yellow {
+  background: #FBBD08;
+}
+label span.olive {
+  background: #B5CC18;
+}
+label span.green {
+  background: #21BA45;
+}
+label span.teal {
+  background: #00B5AD;
+}
+label span.blue {
+  background: #2185D0;
+}
+label span.violet {
+  background: #6435C9;
+}
+label span.purple {
+  background: #A333C8;
+}
+label span.pink {
+  background: #E03997;
+}
+
+
+
+@media screen and (max-height: 500px) {
+  /* doesn't work as renderer creates DOM objects on the fly */
+  /* hacking time */
+  /* JS: document.querySelector('[data="inj"]').innerHTML = "input[type=range]::-webkit-slider-thumb { width: " + '10' + "px !important; height: " + '5' + "px !important; }; input[type=range]::-webkit-slider-runnable-track { width: " + '10' + "px !important; height: " + '5' + "px !important; }";
+  HTML: <style data="inj" type="text/css"></style> */
+  /* ref: https://stackoverflow.com/questions/48297265/slider-webkit-slider-thumb-needed-in-javascript */
+
+}
+
+.dtext {
+  color: white;
+}
+
+sup {
+  font-size: 10px;
+}
+
+/* ppopup container */
+.ppopup {
+  color: white;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* The actual ppopup (appears on top) */
+.ppopup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* ppopup arrow */
+.ppopup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.ppopup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Popup container */
+.popup {
+  display: none;
+  color: white;
+  position: relative;
+  /* display: inline-block; */
+  cursor: pointer;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
