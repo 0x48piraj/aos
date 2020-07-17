@@ -3,10 +3,8 @@
 <p align="center">
 <b>Aroma of the Songs — Visualizing music in the form of intricate rose petals using moving cube traces</b><br><br>
   <img alt="SmellTheSongs Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Tumbara.jpg/330px-Tumbara.jpg" width="400"><br>
-<b>
-  Visit the <a href="https://lab.aroma.ofthesongs.com/">Playground</a> to fiddle around with your favourite songs.<br>
-  Visit Project's <a href="https://aroma.ofthesongs.com/">Home</a> for exploring this project.<br><br>
-</b>
+  Visit <a href="https://lab.aroma.ofthesongs.com/">Playground &mdash; Project AOS</a> to fiddle around with your favourite songs.<br>
+  Visit <a href="https://aroma.ofthesongs.com/">Home &mdash; Project AOS</a> to explore the project.<br><br>
 </p>
 
 # Brief History
@@ -19,23 +17,54 @@ You can visit [About &mdash; Project AOS](https://aroma.ofthesongs.com/about/) t
 
 # The Playground
 
-To experiment with the numbers and to customise the output rose, the playground was created. It helps one to understand the know-how of this project.
+The playground was created to experiment with the numbers, to let users generate roses and play with the project. It helps one to understand the know-how of this project. To know more about the design process, you can head over to [Aroma of songs A.K.A. Project A.O.S. In The Making](https://blog.0x48piraj.com/aroma-of-songs-aka-project-aos-in-the-making/). The blog mostly revolves around the overall design process.
 
 # Internal Workings
 
-Algorithm behind this project manoeuvres the cube using a modified Rose mathematical equation and FFT Spectrum Analysis.
+Algorithm behind this project manoeuvres the cube using a modified Rose equation and FFT Spectrum Analysis.
 
 The proto equations which control the movement of the cube and create intricate realistic looking rose petals are,
 
 ```
-rotateXorYorZ(cos(A * B)) and
+rotateXorYorZ(cos(A * B)),
 rotateXorYorZ(sin(A * B))
 ```
 
 The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called Processing which handles the movement of the cube.
 
-The source code can be found inside the `src/` directory. It is packaged as a Flask application. You can run it by installing Flask and then running the web app by calling,
+The source code is in the `/` directory. It is packaged as a Flask application. You can run it by installing Flask and then running the web app by calling,
 
 ```
 $ python app.py
 ```
+
+# Contributing
+
+A few ways in which you can contribute to Project AOS,
+
+- Suggesting new features, creative suggestions to make this project more fun and useful
+- Getting down to the business i.e. building features, solving issues, etc.
+- Minor corrections like pointing out outdated snippets, typos, formatting errors, etc.
+- Identifying gaps, things like inadequate mathematical explanation, etc.
+
+PS: Look into the issues. Feel free to create a new issue to discuss things.
+
+# Acknowledgements
+
+The idea for this project was initially inspired by Ashris's awesome project Roses in Resonance. The overwhelming support by some amazing people gave it the shape it is in right now.
+
+## Surprise your friends
+
+If you like the project, you can use these quick links to share it with your music aficionado friends,
+
+[![Facebook](static/img/socials/facebook-logo.svg)](https://www.facebook.com/dialog/share?app_id=536779657179021&display=page&href=https%3A%2F%2Faroma.ofthesongs.com&quote=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!)
+
+[![Twitter](static/img/socials/twitter-logo.svg)](https://twitter.com/intent/tweet?url=https://aroma.ofthesongs.com&text=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!%20Check%20out%20Project%20AOS!&hashtags=generativeArt,CreativeCoding,Art)
+
+[![LinkedIn](static/img/socials/linkedin-logo.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Faroma.ofthesongs.com)
+
+# 🎓 License
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
+
+&copy; [Piyush Raj](https://0x48piraj.com)
