@@ -57,11 +57,7 @@ The idea for this project was initially inspired by Ashris's awesome project Ros
 
 If you like the project, you can use these quick links to share it with your music aficionado friends,
 
-[![Facebook](static/img/socials/facebook-logo.svg)](https://www.facebook.com/dialog/share?app_id=536779657179021&display=page&href=https%3A%2F%2Faroma.ofthesongs.com&quote=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!)
-
-[![Twitter](static/img/socials/twitter-logo.svg)](https://twitter.com/intent/tweet?url=https://aroma.ofthesongs.com&text=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!%20Check%20out%20Project%20AOS!&hashtags=generativeArt,CreativeCoding,Art)
-
-[![LinkedIn](static/img/socials/linkedin-logo.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Faroma.ofthesongs.com)
+[![Facebook](static/img/socials/facebook-logo.svg)](https://www.facebook.com/dialog/share?app_id=536779657179021&display=page&href=https%3A%2F%2Faroma.ofthesongs.com&quote=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!)  [![Twitter](static/img/socials/twitter-logo.svg)](https://twitter.com/intent/tweet?url=https://aroma.ofthesongs.com&text=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!%20Check%20out%20Project%20AOS!&hashtags=generativeArt,CreativeCoding,Art)  [![LinkedIn](static/img/socials/linkedin-logo.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Faroma.ofthesongs.com)
 
 # 🎓 License
 
