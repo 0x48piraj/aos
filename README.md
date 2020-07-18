@@ -1,15 +1,13 @@
-# Tumbara
+# Aroma of the Songs
 
 <p align="center">
 <b>Aroma of the Songs — Visualizing music in the form of intricate rose petals using moving cube traces</b><br><br>
-  <img alt="SmellTheSongs Logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Tumbara.jpg/330px-Tumbara.jpg" width="400"><br>
+  <img alt="AromaOfTheSongs Logo" src="static/img/logo.png" width="400"><br>
   Visit <a href="https://lab.aroma.ofthesongs.com/">Playground &mdash; Project AOS</a> to fiddle around with your favourite songs.<br>
   Visit <a href="https://aroma.ofthesongs.com/">Home &mdash; Project AOS</a> to explore the project.<br><br>
 </p>
 
 # Brief History
-
-> In Hindu mythology, Tumburu, also known as Tumbaru and Tumbara is the best among Gandharvas or celestial musician and is sometimes described as the best of singers. He is described to perform in the courts of gods Kubera and Indra as well as sing praises of god Vishnu. He leads the Gandharvas in their singing. — [Wikipedia](https://en.wikipedia.org/wiki/Tumburu)
 
 I love Music and frankly, who doesn't. From my childhood days, I have this innate tendency of tinkering things for example, from sending songs wirelessly using Light, trying encoding songs visually to making machine generated synthetic songs, somehow Music has always been a center piece to all of it. “Aroma of the Songs” follows this progression and transforms Music into Roses creating exploration space of a unique kind—the one that helps you in connecting with Music and impacts you on many levels. Initially it was given the Project Codename S.O.S. meaning Smell of the Songs which then changed (because of the word 'Smell' being a little onto negative side) to Aroma of the Songs or Project A.O.S.
 
@@ -51,7 +49,7 @@ PS: Look into the issues. Feel free to create a new issue to discuss things.
 
 # Acknowledgements
 
-The idea for this project was initially inspired by Ashris's awesome project Roses in Resonance. The overwhelming support by some amazing people gave it the shape it is in right now.
+The idea for this project was initially inspired by Ashris's awesome project Roses in Resonance. The overwhelming support by [Mary Lou](https://github.com/crnacura) gave project's homepage the shape it is in right now.
 
 ## Surprise your friends
 
