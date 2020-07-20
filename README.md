@@ -15,11 +15,11 @@ You can visit [About &mdash; Project AOS](https://aroma.ofthesongs.com/about/) t
 
 # The Playground
 
-The playground was created to experiment with the numbers, to let users generate roses and play with the project. It helps one to understand the know-how of this project. To know more about the design process, you can head over to [Aroma of songs A.K.A. Project A.O.S. In The Making](https://blog.0x48piraj.com/aroma-of-songs-aka-project-aos-in-the-making/). The blog mostly revolves around the overall design process.
+The playground was created to experiment with the numbers, to let users generate roses and play with the project. It helps one to understand the know-how of this project. To know more, you can head over to [Aroma of songs A.K.A. Project A.O.S. In The Making](https://blog.0x48piraj.com/aroma-of-songs-aka-project-aos-in-the-making/). The blog mostly revolves around the overall design process.
 
 # Internal Workings
 
-Algorithm behind this project manoeuvres the cube using a modified Rose equation and FFT Spectrum Analysis.
+Algorithm behind this project manoeuvres the cube using a [modified Rose equation](https://en.wikipedia.org/wiki/Rose_(mathematics)) and [FFT Spectrum Analysis](https://en.wikipedia.org/wiki/Spectrum_analyzer#FFT-based).
 
 The proto equations which control the movement of the cube and create intricate realistic looking rose petals are,
 
@@ -28,7 +28,7 @@ rotateXorYorZ(cos(A * B)),
 rotateXorYorZ(sin(A * B))
 ```
 
-The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called Processing which handles the movement of the cube.
+The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called [Processing](https://en.wikipedia.org/wiki/Processing_(programming_language) which handles the movement of the cube.
 
 The source code is in the `/` directory. It is packaged as a Flask application. You can run it by installing Flask and then running the web app by calling,
 
