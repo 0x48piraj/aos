@@ -28,7 +28,7 @@ rotateXorYorZ(cos(A * B)),
 rotateXorYorZ(sin(A * B))
 ```
 
-The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called [Processing](https://en.wikipedia.org/wiki/Processing_(programming_language) which handles the movement of the cube.
+The cube traces controlled by algorithm's core logic leave behind intricate & beautiful rose petals. The output by the algorithm is integrated with rendering engine called [Processing](https://en.wikipedia.org/wiki/Processing_(programming_language)) which handles the movement of the cube.
 
 The source code is in the `/` directory. It is packaged as a Flask application. You can run it by installing Flask and then running the web app by calling,
 
@@ -49,7 +49,7 @@ PS: Look into the issues. Feel free to create a new issue to discuss things.
 
 # Acknowledgements
 
-The idea for this project was initially inspired by Ashris's awesome project Roses in Resonance. The overwhelming support by [Mary Lou](https://github.com/crnacura) gave project's homepage the shape it is in right now.
+The idea for this project was initially inspired by [Ashris's](https://iashris.com/) awesome project [Roses in Resonance](https://vimeo.com/150315138). The overwhelming support by [Mary Lou](https://github.com/crnacura) gave project's homepage the shape it is in right now.
 
 ## Surprise your friends
 
