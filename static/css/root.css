@@ -143,54 +143,6 @@ input[type=range]:focus::-ms-fill-upper {
   background: #ffffff;
 }
 
-/* Radio CSS Stylesheet */
-
-
-.file-input {
-  display: flex;
-  text-align: center;
-  padding: 5px;
-  position: relative;
-  border-radius: 3px;
-}
-
-.file-input > [type='file'] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  z-index: 10;
-  cursor: pointer;
-}
-
-.file-input > .button {
-  display: inline-block;
-  cursor: pointer;
-  background: #eee;
-  padding: 4px 16px;
-  border-radius: 2px;
-  margin-right: 8px;
-}
-
-.file-input:hover > .button {
-  background: dodgerblue;
-  color: white;
-}
-
-.file-input > .label {
-  color: #00E676;
-  white-space: nowrap;
-  overflow: hidden !important;
-  text-overflow: ellipsis;
-  opacity: .3;
-}
-
-.file-input.-chosen > .label {
-  opacity: 1;
-}
-
 /* Play/Pause Button Stylesheet */
 
 
@@ -244,8 +196,6 @@ button {
     transform-style: preserve-3d;
 }
 
-
-
 .boxes .box:nth-child(1) {
     -webkit-transform: translate(100%, 0);
     transform: translate(100%, 0);
@@ -270,8 +220,6 @@ button {
     -webkit-animation: box4 1s linear infinite;
     animation: box4 1s linear infinite;
 }
-
-
 
 .boxes .box > div {
     background: #5C8DF6;
@@ -310,7 +258,6 @@ button {
     left: 0;
     --translateZ: -90px;
 }
-
 
 @keyframes box1 {
     0%,
@@ -441,17 +388,6 @@ label span.pink {
   background: #E03997;
 }
 
-
-
-@media screen and (max-height: 500px) {
-  /* doesn't work as renderer creates DOM objects on the fly */
-  /* hacking time */
-  /* JS: document.querySelector('[data="inj"]').innerHTML = "input[type=range]::-webkit-slider-thumb { width: " + '10' + "px !important; height: " + '5' + "px !important; }; input[type=range]::-webkit-slider-runnable-track { width: " + '10' + "px !important; height: " + '5' + "px !important; }";
-  HTML: <style data="inj" type="text/css"></style> */
-  /* ref: https://stackoverflow.com/questions/48297265/slider-webkit-slider-thumb-needed-in-javascript */
-
-}
-
 .dtext {
   color: white;
 }
@@ -553,4 +489,217 @@ sup {
 @keyframes fadeIn {
   from {opacity: 0;}
   to {opacity:1 ;}
+}
+
+html, body {
+  margin:0;
+  padding:0;
+        height: 100%;
+        width: 100%;
+  overflow: hidden;
+  display: flex;
+        /* This centers our sketch horizontally. */
+        justify-content: center;
+        /* This centers our sketch vertically. */
+        align-items: center;
+}
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.loader-text {
+  position: absolute;
+  bottom: 25%;
+}
+#p5_loading {
+    background: rgba(249, 251, 255,0.6);
+    color: #ADAFB6;
+    padding: 1.25em;
+    box-sizing: border-box;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    min-height: 100vh;
+    font-family: Roboto, Arial;
+    justify-content: center;
+    align-items: center;
+}
+.data {
+  color:black;
+  font-family:'Poppins',sans-serif;
+  font-weight:500;
+  text-align:center;
+  letter-spacing:.4rem;
+}
+#playground {
+  display: none;
+  /* overflow: scroll; */
+  width: 100%;
+  height: 100%;
+}
+#dashboard {
+  background-color: #111;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  padding: 1.5rem 1rem;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+#parea {
+  width: 80%;
+}
+.picker {
+  margin:auto;
+  font-size:1em;
+  font-family:sintony;
+  height:2em;
+  line-height:2em;
+  border-radius:0.3em;
+  background:#ccc;
+  position:relative;
+  display:block;
+  float:left;
+  background: rgb(43, 43, 43);
+  padding: 0.2rem 0.1rem;
+}
+p {
+  color: white;
+}
+.pclose {
+  margin-bottom: 0;
+}
+.guardian {
+  display: flex;
+}
+.cont {
+  height: 25vh;
+  box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
+  -webkit-box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
+}
+#exec {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.rotnav {
+  position: absolute;
+  margin-top: 50%;
+  margin-left: 1.25em;
+  -webkit-transform-origin: 0 50%;
+      -moz-transform-origin: 0 50%;
+      -ms-transform-origin: 0 50%;
+        -o-transform-origin: 0 50%;
+          transform-origin: 0 50%;
+  /* Safari */
+  -webkit-transform: rotate(-90deg);
+  /* Firefox */
+  -moz-transform: rotate(-90deg);
+  /* IE */
+  -ms-transform: rotate(-90deg);
+  /* Opera */
+  -o-transform: rotate(-90deg);
+  display: flex;
+  padding: 0 9.375em;
+}
+.rotlinks {
+  margin: 0 0.9375em;
+  text-decoration: none;
+  outline: 0;
+  color: #219961;
+  border-bottom: solid 1px rgb(43,43,43);
+}
+#s1, #s2, #s3 {
+  display: flex;
+  justify-content: space-between;
+}
+
+#toggle-song::file-selector-button {
+  background: #49c086;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  margin-right: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#toggle-song {
+  color: white;
+}
+
+@media (max-width: 500px) and (orientation: landscape) {
+  #heading {
+    font-size: 18px;
+  }
+
+  .lgallery {
+    margin: 0;
+    width: 50px;
+  }
+
+  .toggle-song {
+    display: block;
+  }
+
+  .toggle-song .button {
+    padding: 4px 8px;
+  }
+
+  /* Hide label, rely on button only */
+  .toggle-song .label {
+    display: none;
+  }
+
+  #playbtn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #toggler {
+    padding: 12px 18px;
+    margin: 0 0 0 20px;
+  }
+
+  #play-svg {
+    width: 15px;
+  }
+
+  .slider {
+    height: 0; /* or display: none */
+  }
+
+  .parent {
+    margin: 5px 0 0 0;
+  }
+
+  #axisBx, #axisBy, #axisBz,
+  #axisAx, #axisAy, #axisAz {
+    padding: 0 5px;
+  }
+
+  .dashboard-text {
+    font-size: 12px;
+  }
+
+  /* Swap labels for popups */
+  .dtext {
+    display: none;
+  }
+
+  .popup {
+    display: inline-block;
+  }
+}
+
+.hidden {
+  display: none !important;
 }
