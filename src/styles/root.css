@@ -5,11 +5,13 @@
   box-sizing: border-box;
 }
 
+.orbit-control {
+  font-size: clamp(0.7em, 1vw, 1em);
+}
+
 .toggler3way{
   display: block;
   margin:auto;
-  font-size:1em;
-  font-family:sintony;
   height:2em;
   line-height:2em;
   border-radius:0.3em;
@@ -312,34 +314,25 @@ input[type="radio"]:checked + label span {
   transform: scale(1.25);
 }
 input[type="radio"]:checked + label .red {
-  border: 2px solid #711313;
+  border: 2px solid #C92B68;
 }
 input[type="radio"]:checked + label .orange {
-  border: 2px solid #873a08;
+  border: 2px solid #F2711C;
 }
 input[type="radio"]:checked + label .yellow {
-  border: 2px solid #816102;
-}
-input[type="radio"]:checked + label .olive {
-  border: 2px solid #505a0b;
+  border: 2px solid #FBBD08;
 }
 input[type="radio"]:checked + label .green {
-  border: 2px solid #0e4e1d;
-}
-input[type="radio"]:checked + label .teal {
-  border: 2px solid #003633;
+  border: 2px solid #5FA777;
 }
 input[type="radio"]:checked + label .blue {
-  border: 2px solid #103f62;
+  border: 2px solid #2185d0;
 }
 input[type="radio"]:checked + label .violet {
-  border: 2px solid #321a64;
-}
-input[type="radio"]:checked + label .purple {
-  border: 2px solid #501962;
+  border: 2px solid #6435C9;
 }
 input[type="radio"]:checked + label .pink {
-  border: 2px solid #851554;
+  border: 2px solid #F7879A;
 }
 
 label {
@@ -358,150 +351,107 @@ label span {
   transition: transform .2s ease-in-out;
 }
 label span.red {
-  background: #DB2828;
+  background: #C92B68;
 }
 label span.orange {
-  background: #F2711C;
+  background: #DB7146;
 }
 label span.yellow {
   background: #FBBD08;
 }
-label span.olive {
-  background: #B5CC18;
-}
 label span.green {
-  background: #21BA45;
-}
-label span.teal {
-  background: #00B5AD;
+  background: #5FA777;
 }
 label span.blue {
-  background: #2185D0;
+  background: #2185d0;
 }
 label span.violet {
   background: #6435C9;
 }
-label span.purple {
-  background: #A333C8;
-}
 label span.pink {
-  background: #E03997;
+  background: #F7879A;
 }
 
-.dtext {
+.dashboard-label {
   color: white;
 }
 
-sup {
+.superscript {
+  position: relative; top: -0.5em;
   font-size: 10px;
 }
 
-/* ppopup container */
-.ppopup {
-  color: white;
+.tooltip {
   position: relative;
   display: inline-block;
-  cursor: pointer;
+  cursor: help;
 }
-
-/* The actual ppopup (appears on top) */
-.ppopup .popuptext {
-  visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
+.tooltip:after {
+  content: attr(data-tip);
   position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
+  bottom: 24px;
+  left: -10px;
+  min-width: 100px;
+  max-width: 300px;
+  padding: 5px 7px 5px 10px;
+  pointer-events: none;
+  font-size: 0.75em;
+  background-color: #001331;
+  color: #FFF;
+  border-radius: 2px;
 }
-
-/* ppopup arrow */
-.ppopup .popuptext::after {
+.tooltip:before {
   content: "";
+  width: 0;
+  height: 0;
   position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+  left: 5px;
+  bottom: 18px;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid #001331;
 }
-
-.ppopup .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
-}
-
-/* Popup container */
-.popup {
-  display: none;
-  color: white;
-  position: relative;
-  /* display: inline-block; */
-  cursor: pointer;
-}
-
-/* The actual popup (appears on top) */
-.popup .popuptext {
+.tooltip:before, .tooltip:after {
+  display: block;
   visibility: hidden;
-  width: 160px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 8px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -80px;
+  opacity: 0;
+  transition: opacity 0.2s ease-out, margin 0.2s ease-out;
 }
-
-/* Popup arrow */
-.popup .popuptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
+.tooltip:hover {
+  color: #999;
 }
-
-.popup .show {
+.tooltip:hover:before, .tooltip:hover:after {
+  opacity: 1;
+  margin-bottom: 3px;
   visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s
 }
 
-@-webkit-keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+.tooltip-bottom:after {
+  top: 24px;
 }
-
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity:1 ;}
+.tooltip-bottom:before {
+  top: 18px;
+  border-top: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #001331;
+}
+.tooltip-bottom:hover:before, .tooltip-bottom:hover:after {
+  bottom: auto;
+  margin-bottom: 0;
+  margin-top: 3px;
 }
 
 html, body {
   margin:0;
   padding:0;
-        height: 100%;
-        width: 100%;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
-        /* This centers our sketch horizontally. */
-        justify-content: center;
-        /* This centers our sketch vertically. */
-        align-items: center;
+  justify-content: center;
+  align-items: center;
+  font-family:sintony;
 }
 canvas {
     padding: 0;
@@ -530,12 +480,13 @@ canvas {
     justify-content: center;
     align-items: center;
 }
-.data {
+.heading-text {
   color:black;
   font-family:'Poppins',sans-serif;
   font-weight:500;
   text-align:center;
   letter-spacing:.4rem;
+  margin:.5rem;
 }
 #playground {
   display: none;
@@ -551,15 +502,13 @@ canvas {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
 }
-#parea {
+#renderer {
   width: 80%;
 }
 .picker {
   margin:auto;
   font-size:1em;
-  font-family:sintony;
   height:2em;
   line-height:2em;
   border-radius:0.3em;
@@ -576,18 +525,29 @@ p {
 .pclose {
   margin-bottom: 0;
 }
-.guardian {
+.orbit-control {
   display: flex;
+}
+#ret-li {
+  width: clamp(100px, 15vw, 250px);
 }
 .cont {
-  height: 25vh;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
-  -webkit-box-shadow: 0 -5px 10px rgba(0, 0, 0, .4);
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-#exec {
+.controls {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+}
+.playback {
+  margin-bottom: 30px;
+}
+.palette-picker {
+  margin-bottom: 30px;
 }
 .rotnav {
   position: absolute;
@@ -677,7 +637,7 @@ p {
     height: 0; /* or display: none */
   }
 
-  .parent {
+  .rotation-group {
     margin: 5px 0 0 0;
   }
 
@@ -691,7 +651,7 @@ p {
   }
 
   /* Swap labels for popups */
-  .dtext {
+  .dashboard-label {
     display: none;
   }
 
@@ -702,4 +662,69 @@ p {
 
 .hidden {
   display: none !important;
+}
+
+.hr-text {
+  line-height: 1em;
+  position: relative;
+  outline: 0;
+  border: 0;
+  color: black;
+  text-align: center;
+  height: 1.5em;
+  opacity: 0.5;
+}
+.hr-text:before {
+  content: "";
+  background: linear-gradient(to right, transparent, #00E676, transparent);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+}
+.hr-text:after {
+  content: attr(data-content);
+  position: relative;
+  display: inline-block;
+  color: black;
+  padding: 0 0.5em;
+  line-height: 1.5em;
+  color: #00E676;
+  background-color: #111;
+}
+
+.load-info {
+  color: #00E676;
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-top: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.custom {
+  margin-left: 10px;
+}
+
+.color-picker {
+  display: inline-block;
+  transition: transform .2s ease, box-shadow .3s ease;
+}
+.color-picker.active {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px var(--picker-color, #1DB8CE);
+}
+
+#toggler.playing {
+  animation: pulse 1.2s infinite ease-in-out;
+  --glow-color: #00E676; /* default fallback */
+}
+
+@keyframes pulse {
+  0%   { box-shadow: 0 0 10px var(--glow-color); }
+  50%  { box-shadow: 0 0 25px var(--glow-color); }
+  100% { box-shadow: 0 0 10px var(--glow-color); }
 }

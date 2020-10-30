@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:og="http://ogp.me/ns#" prefix="og: http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Synth Garden is an experimental website which lets users visualize music in the form of intricate rose petals using moving cube traces using mathematical equations and FFT spectrum analysis.">
+  <title>Synth Garden &bull; Project A.O.S.</title>
+  <link rel='stylesheet' href='/styles/gallery.css'>
+  <link rel="stylesheet" href="/styles/root.css">
+</head>
+<body>
+<!-- https://github.com/processing/p5.js/wiki/p5.js-overview#loading-screen -->
+<div id="p5_loading">
+<div class="boxes">
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="box">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<div class="loader-text">LOADING THE PLAYGROUND ...</div>
+</div>
+
+<div id="orientationError" class="hidden">
+  <p align="center" style="color: black;">
+  <img src="/assets/images/error.gif" width="400" height="400" alt="Portrait mode detected."><br>
+  This website is best viewed on Desktops, but if you still want to uncover what's beneath, switch to landscape mode.<br>
+  <img src="/assets/images/rotate.gif" width="100" height="100" alt="Turn your phone">
+  </p>
+</div>
+
+<div id="playground">
+  <div id="renderer" class="renderer">
+    <h1 id="heading" class="heading-text">The Synth Garden</h1>
+    <div class="rotnav">
+    <a class="rotlinks" href="https://aroma.ofthesongs.com/about"> About </a>
+    <a class="rotlinks" href="https://aroma.ofthesongs.com"> Project Home </a>
+    </div>
+  </div>
+
+  <div id="dashboard" class="dashboard">
+
+    <div id="controls" class="controls">
+      <div class="playback">
+        <div id="playbtn">
+          <button id="toggler">
+            <svg id='play-svg' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+              <path id="play-svgpath" d='M11,8 L26,16 11,24 11,8'>
+                <animate attributeName='d' fill='freeze' dur='0.2s'
+                        calc-mode='spline' keySplines='0.19 1 0.22 1'/>
+              </path>
+            </svg>
+          </button>
+        </div>
+        <div class="load-info">Now playing: *default-track.mp3*</div>
+        <hr class="hr-text" data-content="or"/>
+        <div id="file-input"></div>
+      </div>
+      <div class="palette-picker">
+        <div class="dashboard-label">Pick a visual style <span class="tooltip" data-tip="Select a petal color palette."><span class="superscript">[?]</span></span></div>
+        <div class="picker">
+          <input type="radio" name="color" id="red" value="red" />
+          <label for="red"><span class="red"></span></label>
+
+          <input type="radio" name="color" id="pink" value="pink" />
+          <label for="pink"><span class="pink"></span></label>
+
+          <input type="radio" name="color" id="yellow" value="yellow" />
+          <label for="yellow"><span class="yellow"></span></label>
+
+          <input type="radio" name="color" id="green" value="green" />
+          <label for="green"><span class="green"></span></label>
+
+          <input type="radio" name="color" id="orange" value="orange" />
+          <label for="orange"><span class="orange"></span></label>
+
+          <input type="radio" name="color" id="blue" value="blue" />
+          <label for="blue"><span class="blue"></span></label>
+
+          <input type="radio" name="color" id="violet" value="violet" />
+          <label for="violet"><span class="violet"></span></label>
+        </div>
+
+        <div class="custom picker">
+           <label for="colorPicker">
+            <input type="color" class="color-picker" id="colorPicker" value="#1DB8CE" />
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="controllers">
+    <div id="sliders">
+      <div class="dashboard-label">Rotation speed slider <span class="tooltip" data-tip="Sets how fast the system rotates."><span class="superscript">[?]</span></span></div>
+      <div id="s1"></div>
+      <div class="dashboard-label">Shrink rate slider <span class="tooltip" data-tip="Adjusts how quickly the petals shrink."><span class="superscript">[?]</span></span></div>
+      <div id="s2"></div>
+      <div class="dashboard-label">Stroke weight slider <span class="tooltip" data-tip="Controls the thickness of the petals."><span class="superscript">[?]</span></span></div>
+      <div id="s3"></div>
+    </div>
+    <div class="rotation-group">
+      <div class="orbit-control">
+      <p class="dashboard-text">Orbit A <span class="tooltip" data-tip="Controls the primary axis."><span class="superscript">[?]</span></span></p>
+      <div class="toggler3way">
+        <div id="axisAx" class="switcher Xaxis" onclick="changeAxis('A','x')">X</div>
+        <div id="axisAy" class="switcher Yaxis" onclick="changeAxis('A','y')">Y</div>
+        <div id="axisAz" class="switcher Zaxis" onclick="changeAxis('A','z')">Z</div>
+          <div id="selectorA" class="selector"></div>
+      </div>
+      </div>
+      <div class="orbit-control">
+      <p class="dashboard-text">Orbit B <span class="tooltip" data-tip="Controls the secondary rotation."><span class="superscript">[?]</span></span></p>
+      <div class="toggler3way">
+        <div id="axisBx" class="switcher Xaxis" onclick="changeAxis('B','x')">X</div>
+        <div id="axisBy" class="switcher Yaxis" onclick="changeAxis('B','y')">Y</div>
+        <div id="axisBz" class="switcher Zaxis" onclick="changeAxis('B','z')">Z</div>
+          <div id="selectorB" class="selector"></div>
+      </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="cont">
+    <div class="lgallery">
+        <ul id="lightgallery">
+        <li style="display: none;" id="ret-li" data-src="" data-sub-html="">
+          <a>
+            <img alt="Image Gallery" id="ret-img" class="img-responsive" src="">
+            <div class="lgallery-poster">
+              <img alt="Click to see the generated visualizations." src="/assets/images/zoom.png">
+            </div>
+          </a>
+          <span id="imsg" style="display: none;" class="small">View all generated viz.</span>
+        </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js"></script>
+<script src="//jdataview.github.io/dist/jdataview.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/baffle@0.3.6/dist/baffle.min.js"></script>
+
+<script src='/libs/lightgallery.js'></script>
+<script src='/libs/lg-pager.js'></script>
+<script src='/libs/lg-autoplay.js'></script>
+<script src='/libs/lg-share.js'></script>
+<script src='/libs/lg-fullscreen.js'></script>
+<script src='/libs/lg-zoom.js'></script>
+<script src='/libs/lg-hash.js'></script>
+<script src='/libs/picturefill.min.js'></script>
+<script type="text/javascript" src="/components/viewgate.js"></script>
+<script type="text/javascript" src="/components/sketch.js"></script>
+
+</body>
+</html>
