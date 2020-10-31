@@ -2,20 +2,20 @@
 
 <p align="center">
 <b>What would music look like if it grew in nature?</b><br><br>
-  <img alt="Aroma Of The Songs" src="static/img/logo.png" width="400"><br>
-  Visit <a href="https://lab.aroma.ofthesongs.com/">Playground &mdash; Project AOS</a> to fiddle around with your favourite songs.<br>
-  Visit <a href="https://aroma.ofthesongs.com/">Home &mdash; Project AOS</a> to explore the project.<br><br>
+  <img alt="Aroma of the Songs" src="src/assets/images/aos.gif" width="400"><br>
+  Visit <a href="https://0x48piraj.com/projects/aos/lab">Playground &mdash; Project AOS</a> to fiddle around with your favourite songs.<br>
+  Visit <a href="https://0x48piraj.com/projects/aos/">Home &mdash; Project AOS</a> to explore the project.<br><br>
 </p>
 
 # Background
 
-I love music &mdash; and frankly, who doesn't. But for me, it's always been more than listening. Since childhood, I've had this innate tendency to tinker with music: writing a protocol to transmit songs wirelessly using light, visually encoding melodies, crafting synthetic soundscapes from scratch. Somehow, music has always been the centerpiece of my creative experiments.
+I love music &mdash; and frankly, who doesn't. But for me, it's always been more than listening. To me, music has always felt spatial: an interplay of motion, symmetry, and emotion. Since childhood, I've had this innate tendency to tinker with music: writing a protocol to transmit songs wirelessly using light, visually encoding melodies, crafting synthetic soundscapes from scratch. Somehow, music has always been the centerpiece of my creative experiments.
 
 Aroma of the Songs is a natural evolution of that journey &mdash; a generative art project that transforms musical input into ephemeral, intricate rose petals creating exploration space of a unique kind. It's where signal processing meets aesthetics, where mathematical beauty shapes emotion.
 
-This project grew out of a desire to make music feel tangible &mdash; to let us see the shape of a song, and maybe even smell it.
+This project grew out of a desire to turn that perception into form, to make music feel tangible &mdash; into something we can see, feel, and almost smell.
 
-You can visit [About &mdash; Project AOS](https://aroma.ofthesongs.com/about/) to read more about the project origin.
+You can visit [About &mdash; Project AOS](https://0x48piraj.com/projects/aos/about/) to read more about the project origin.
 
 # The Playground
 
@@ -94,7 +94,7 @@ While these works planted the seed of inspiration, **Aroma of the Songs** reinte
 
 If you like the project, you can use these quick links to share it with your music aficionado friends,
 
-[![Facebook](static/img/socials/facebook-logo.svg)](https://www.facebook.com/dialog/share?app_id=536779657179021&display=page&href=https%3A%2F%2Faroma.ofthesongs.com&quote=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!)  [![Twitter](static/img/socials/twitter-logo.svg)](https://twitter.com/intent/tweet?url=https://aroma.ofthesongs.com&text=Aroma%20of%20the%20Songs%20visualizes%20songs%20in%20the%20form%20of%20intricate%20rose%20petals%20using%20moving%20cube%20traces%20using%20fancy%20mathematical%20equations!%20Check%20out%20Project%20AOS!&hashtags=generativeArt,CreativeCoding,Art)  [![LinkedIn](static/img/socials/linkedin-logo.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Faroma.ofthesongs.com)
+[![Facebook](src/assets/images/socials/facebook-logo.svg)](https://www.facebook.com/dialog/share?app_id=536779657179021&display=page&href=https%3A%2F%2F0x48piraj.com/projects/aos&quote=Ever%20wondered%20what%20music%20would%20look%20like%20if%20it%20grew%20in%20nature%3F%20A%20generative%20art%20project%20that%20transforms%20musical%20input%20into%20ephemeral%2C%20intricate%20rose%20petals%20exploring%20a%20whole%20new%20sensory%20dimension.)  [![Twitter](src/assets/images/socials/twitter-logo.svg)](https://twitter.com/intent/tweet?text=Ever%20wondered%20what%20music%20would%20look%20like%20if%20it%20grew%20in%20nature%3F%20%0A%0AA%20generative%20art%20project%20that%20transforms%20musical%20input%20into%20ephemeral%2C%20intricate%20rose%20petals%20exploring%20a%20whole%20new%20sensory%20dimension.%0A%0AExplore%20%E2%9E%9A%20https%3A%2F%2F0x48piraj.com%2Fprojects%2Faos%0A%0A%23Art%20%23CreativeCoding%20%23MusicVisualization)  [![LinkedIn](src/assets/images/socials/linkedin-logo.svg)](https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2F0x48piraj.com/projects/aos)
 
 # License
 

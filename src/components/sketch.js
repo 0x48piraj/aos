@@ -100,7 +100,7 @@ function getDynamicBins(fftSize, bands = 8) {
 }
 
 /**
- * getDynamicStrokeColor(level, spectrum)
+ * getDynamicColor(level, spectrum)
  *
  * Choose a monochromatic stroke color from the active palette (p, s, t, q)
  * based on long-term energy (snappy thresholds). Then apply a treble-driven
@@ -113,11 +113,11 @@ function getDynamicBins(fftSize, bands = 8) {
  * @param {Uint8Array} spectrum - FFT spectrum array from p5.FFT.analyze().
  * @returns {p5.Color} A p5.Color instance suitable for stroke().
  */
-function getDynamicStrokeColor(level, spectrum) {
+function getDynamicColor(level, spectrum) {
   let currentColor;
   let avgEnergy = getSongEnergy(level);
 
-  // Instantaneous treble lookup
+  // instantaneous treble lookup
   let treble = spectrum[FFT_BINS[FFT_BINS.length - 1]];
 
   // thresholds for snapping (not continuous blend aka no lerping)
@@ -219,7 +219,7 @@ function getSplineOffset(t) {
  *                   - {string} t: Tertiary
  *                   - {string} q: Quaternary (most vibrant)
  *
- * Fallbacks to white (#ffffff) if the input is invalid.
+ * Fallbacks to white if the input is invalid.
  */
 function generatePalette(baseHex) {
   // normalize
@@ -494,7 +494,6 @@ function setup() {
   // red as default
   p = palettes[DEFAULT_PALETTE].p; s = palettes[DEFAULT_PALETTE].s; t = palettes[DEFAULT_PALETTE].t; q = palettes[DEFAULT_PALETTE].q;
 
-  background(255)
   DOM.show(DOM.playground, 'flex'); // display the picker now
   const text = baffle(".data"); // HEADING ANIMATION
   text.set({
@@ -614,6 +613,12 @@ function draw() {
   // current palette colors
   const colors = [p, s, t, q];
 
+  // fix black export issue
+  if (frameCount === 1) {
+    clear();
+    background(255);
+  }
+
   strokeWeight(strokeSlider.value());
 
   // only proceed if song is playing and we got signal
@@ -649,7 +654,7 @@ function draw() {
     rotateCube(axisA, axisB);
 
     // stroke color from amplitude (safe fallback if size is NaN)
-    let strokeColor = getDynamicStrokeColor(level, spectrum);
+    let strokeColor = getDynamicColor(level, spectrum);
     stroke(strokeColor);
     // stroke(red(strokeColor), green(strokeColor), blue(strokeColor), 180); // alpha channel based coloring
 
@@ -717,27 +722,96 @@ function imgPounder(src) {
   cloned.style.display = 'none';
   cloned.setAttribute('data-src', src);
   cloned.setAttribute('data-responsive', src + " 700");
-  cloned.setAttribute('data-sub-html',
-    `<h4>${count}: ${songMetadata.title || "Untitled"}</h4><p>Exported from ${songMetadata.title || "Untitled"} at ${song.currentTime()} </p>`
-  );
 
   DOM.gallery.appendChild(cloned);
 }
 
 function exportFrame(frameCount) {
-  const imgSrc = canvas.toDataURL("image/png");
+  const src = canvas, w = src.width, h = src.height;
+  // offscreen
+  const off = document.createElement('canvas'); off.width = w; off.height = h;
+  const ctx = off.getContext('2d');
 
+  // draw frame + footer
+  ctx.drawImage(src, 0, 0, w, h);
+  const barH = Math.round(h * 0.10);
+  const barY = h - barH;
+  ctx.fillStyle = 'rgba(0,0,0,0.55)'; ctx.fillRect(0, barY, w, barH);
+
+  // text positions
+  const titleY = barY + Math.round(barH * 0.18);
+  const metaY  = barY + Math.round(barH * 0.56);
+  const labelY = barY + Math.round(barH * 0.12);
+
+  // metadata
+  const title = songMetadata.title || "Untitled";
+  const artist = songMetadata.artist || "Unknown";
+  const creator = "Project A.O.S.";
+
+  // styling
+  const pad = Math.round(w * 0.04);
+  const titleSize = Math.round(w * 0.035);
+  const metaSize = Math.round(w * 0.020);
+
+  // title
+  ctx.fillStyle = '#ffffff'; ctx.textBaseline = 'top';
+  ctx.font = `700 ${titleSize}px sans-serif`;
+  const maxTitleW = w - pad * 2;
+  let drawTitle = title;
+  if (ctx.measureText(drawTitle).width > maxTitleW) {
+    // aggressive truncation to avoid long loops
+    drawTitle = drawTitle.slice(0, Math.max(8, Math.floor(drawTitle.length * 0.6)));
+    while (ctx.measureText(drawTitle + '...').width > maxTitleW && drawTitle.length) {
+      drawTitle = drawTitle.slice(0, -2);
+    }
+    drawTitle = drawTitle + '...';
+  }
+  ctx.fillText(drawTitle, pad, titleY);
+
+  // artist / creator
+  const gap = Math.round(w * 0.03);
+  const creatorFontSize = Math.max(10, Math.round(metaSize * 0.9));
+  ctx.font = `${creatorFontSize}px sans-serif`;
+  const creatorW = ctx.measureText(creator).width;
+
+  ctx.font = `${metaSize}px sans-serif`;
+  const maxArtistW = Math.max(10, (w - pad * 2) - creatorW - gap);
+
+  let a = artist;
+  if (ctx.measureText(a + '...').width > maxArtistW) {
+    a = a.slice(0, Math.max(6, Math.floor(a.length * 0.6)));
+    while (ctx.measureText(a + '...').width > maxArtistW && a.length) a = a.slice(0, -1);
+    a = a + '...';
+  }
+  ctx.fillStyle = '#ffffff';
+  ctx.font = `${metaSize}px sans-serif`;
+  ctx.fillText(a, pad, metaY);
+
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
+  ctx.font = `${creatorFontSize}px sans-serif`;
+  ctx.fillText(creator, w - pad - creatorW, metaY);
+
+  // human-friendly time label
+  const total = song.currentTime();
+  const mins = Math.floor(total / 60);
+  const secs = (total % 60).toFixed(2);
+  const timeLabel = mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+  const rightLabel = `#${frameCount} at ${timeLabel}`;
+
+  ctx.font = `${Math.max(10, Math.round(metaSize * 0.9))}px sans-serif`;
+  ctx.fillStyle = '#ffffff';
+  const rightW = ctx.measureText(rightLabel).width;
+  ctx.fillText(rightLabel, w - pad - rightW, labelY);
+
+  // dataURL + gallery handling
+  const posterSrc = off.toDataURL('image/png');
   if (frameCount === 1) {
-    DOM.retImg.src = imgSrc;
-    DOM.retLi.setAttribute("data-src", imgSrc);
-    DOM.retLi.setAttribute(
-      "data-sub-html",
-      `<h4>${frameCount}: ${songMetadata.title || "Untitled"}</h4><p>Exported from ${songMetadata.title || "Untitled"} by ${songMetadata.artist || "Unknown Artist"} at ${song.currentTime()}</p>`
-    );
+    DOM.retImg.src = posterSrc;
+    DOM.retLi.setAttribute("data-src", posterSrc);
     DOM.show(DOM.retLi, 'block');
     DOM.show(DOM.imsg, 'block');
   } else {
-    imgPounder(imgSrc); // gallery helper
+    imgPounder(posterSrc); // gallery helper
   }
 }
 
@@ -774,9 +848,9 @@ function changeAxis(group, axis) {
  * Controls an inline SVG path morph between two path strings using an
  * <animate> element.
  * 
- * @param {string} svgId - id of the <svg> element containing a <path>.
- * @param {string} firstPath - d attribute string for state 1 (PLAY).
- * @param {string} secondPath - d attribute string for state 2 (PAUSE).
+ * @param {string} svgId - id of the <svg> element containing <path>.
+ * @param {string} firstPath - d attribute string for PLAY.
+ * @param {string} secondPath - d attribute string for PAUSE.
  * @param {string} [styleClass] - optional class toggled on state change.
  */
 class MorphedSVG {
@@ -801,10 +875,10 @@ class MorphedSVG {
   }
 
   /**
-   * Switch to the requested state (idempotent).
+   * Switch to the requested state.
    * Uses the <animate> element to play the morph.
    *
-   * @param {boolean} state - MorphedSVG.STATE_1 or STATE_2
+   * @param {boolean} state - STATE_1 or STATE_2
    */
   toState(state) {
     if (!this.path || !this.anim) return;
@@ -827,12 +901,12 @@ class MorphedSVG {
     }
 
     this.state = state;
-    // trigger the <animate> element
+    // trigger the <animate>
     try {
       this.anim.beginElement();
     } catch (e) {
       // some browsers may restrict beginElement
-      // set final path immediately
+      // set final path
       this.path.setAttribute('d', state ? this.secondPath : this.firstPath);
     }
 
