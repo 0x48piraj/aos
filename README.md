@@ -9,11 +9,11 @@
 
 # Background
 
-I love music &mdash; and frankly, who doesn't. But for me, it's always been more than listening. To me, music has always felt spatial: an interplay of motion, symmetry, and emotion. Since childhood, I've had this innate tendency to tinker with music: writing a protocol to transmit songs wirelessly using light, visually encoding melodies, crafting synthetic soundscapes from scratch. Somehow, music has always been the centerpiece of my creative experiments.
+I love music &mdash; and frankly, who doesn't. But for me, it's always been more than listening. To me, music has always felt spatial: an interplay of motion, symmetry and emotion. Since childhood, I've had this innate tendency to tinker with music: writing a protocol to transmit songs wirelessly using light, visually encoding melodies, crafting synthetic soundscapes from scratch. Somehow, music has always been the centerpiece of my creative experiments.
 
 Aroma of the Songs is a natural evolution of that journey &mdash; a generative art project that transforms musical input into ephemeral, intricate rose petals creating exploration space of a unique kind. It's where signal processing meets aesthetics, where mathematical beauty shapes emotion.
 
-This project grew out of a desire to turn that perception into form, to make music feel tangible &mdash; into something we can see, feel, and almost smell.
+This project grew out of a desire to turn that perception into form, to make music feel tangible &mdash; into something we can see, feel and almost smell.
 
 You can visit [About &mdash; Project AOS](https://0x48piraj.com/projects/aos/about/) to read more about the project origin.
 
@@ -25,19 +25,19 @@ The playground was created to experiment with the numbers, to let users generate
 
 Unlike many music visualizers that map volume or beat to flashy visuals, _Aroma of the Songs_ focuses on **emergent organic behavior**. Using musically-biased spline-generated paths and dynamically modulated color palettes, it captures not just loudness or tempo, but emotional contours of a track.
 
-Behind the beauty lies a system grounded in FFT spectrum analysis, energy mapping, and spline-driven motion.
+Behind the beauty lies a system grounded in FFT spectrum analysis, energy mapping and spline-driven motion.
 
 Each rose generated is unique, shaped by the song's energy profile with a blend of instantaneous and long-term amplitude signal analysis, while color intensity reacts to treble energy spikes, giving the visuals a sense of rhythm and breath.
 
-The result is a something that "grows" with the song, petal by petal, each shaped by rhythm, emotion, and frequency.
+The result is a something that "grows" with the song, petal by petal, each shaped by rhythm, emotion and frequency.
 
 ### Signal analysis
 
-Using `p5.FFT`, the audio input is decomposed into frequency bands in real-time, allowing the system to interpret the treble, mid, and bass characteristics of the track.
+Using `p5.FFT`, the audio input is decomposed into frequency bands in real-time, allowing the system to interpret the treble, mid and bass characteristics of the track.
 
 This allows the system to "listen" to the song's internal dynamics, detecting not just beats, but capturing nuances like vocal clarity or percussion _crispness_.
 
-To ensure temporal context, we built a sliding-window energy system that calculates long-term amplitude averages, giving the visuals a memory of how the track evolves over time. This gives the petals their "breath" &mdash; expanding, shrinking, and shifting based on both the current pulse and the long-term flow of the song.
+To ensure temporal context, we built a sliding-window energy system that calculates long-term amplitude averages, giving the visuals a memory of how the track evolves over time. This gives the petals their "breath" &mdash; expanding, shrinking and shifting based on both the current pulse and the long-term flow of the song.
 
 ### Form generation
 
@@ -65,13 +65,13 @@ This gives visual weight to cymbals, vocals, or high synths: lighting up petals 
 
 ### Rendering pipeline
 
-All petals are rendered in real time using Processing (`p5.js`) in a `P2D` context, allowing smooth interactive control. Users can upload songs, tweak rotation axes (X/Y/Z) and speeds, control shrink rates, stroke weights, and even pause or resume playback mid-visualization.
+All petals are rendered in real time using Processing (`p5.js`) in a `P2D` context, allowing smooth interactive control. Users can upload songs, tweak rotation axes (X/Y/Z) and speeds, control shrink rates, stroke weights and even pause or resume playback mid-visualization.
 
-Export options include robust gallery snapshots, high-res PNG frames, and auto-generated posters with embedded metadata turning **every song into a collectible rose**.
+Export options include robust gallery snapshots, high-res PNG frames and auto-generated posters with embedded metadata turning **every song into a collectible rose**.
 
 ## TL;DR: A System of Systems
 
-**Aroma of the Songs** is a delicate ecosystem where sound is heard through FFT, felt through energy memory, shaped by splines, colored by emotion, and rendered in real-time.
+**Aroma of the Songs** is a delicate ecosystem where sound is heard through FFT, felt through energy memory, shaped by splines, colored by emotion and rendered in real-time.
 
 # Contributing
 
@@ -84,11 +84,32 @@ A few ways in which you can contribute to Project AOS,
 
 PS: Look into the issues. Feel free to create a new issue to discuss things.
 
+# Beyond the garden
+
+Like any living system, this project is meant to evolve. The current implementation focuses on form, but its future lies in weaving a closer harmony between music and intent.
+
+Some of the directions I'm exploring:
+
+* **Multisensory extensions**: Coupling visuals with haptic feedback, making sound physically perceptible.
+* **Color selection**: Using mathematical models to generate harmonious palettes from analysing lyrical sentiment letting colors respond to **emotion** as much as to energy.
+* **One-shot composition**: Extend the roses beyond individual cycles to create a single, evolving visual that encapsulates an entire song in one continuous cycle.
+* **Collaborative garden**: Letting people collaborate songs in real-time to grow communal roses, forming a digital garden of shared emotion that evolves through collective listening.
+  - [ ] Multi-track mode to load two songs and visualize them as interwoven roses, where FFT differentials form a sort of "duo-toned petals" for example, using bass / treble as inner / outer layers
+  - [ ] Real-time sharing via WebRTC
+  - [ ] WebMIDI support letting MIDI controllers adjust parameters
+* **Machine-perception feedback loops**: Using computer vision to analyze the generated roses.
+* **Bio-inspired dynamics**: Exploring growth behaviors drawn from phyllotaxis, branching systems and cellular automata.
+  - [ ] Morph petal edges with Perlin noise synced to amplitude which letting us further get away from machine-like motion
+  - [ ] Mapping FFT bins into distortions at different angles, making petals breathe with the music
+  - [ ] Generative seed mode (no audio, but generates roses from random seeds)
+
+Each of these ideas tries to build upon the project's core philosophy.
+
 ### Acknowledgements
 
 This project builds on concepts from music visualizers and floral art traditions, inspired in part by experiments like [Roses in Resonance](https://github.com/iashris/Roses-in-Resonance-Music-Visualization) by [Ashris Choudhury](https://www.media.mit.edu/people/ashris/overview/) and the [spectrographic](https://github.com/LeviBorodenko/spectrographic/) project by [LeviBorodenko](https://github.com/LeviBorodenko), which converts images into sound whose spectrograms resemble the original image.
 
-While these works planted the seed of inspiration, **Aroma of the Songs** reinterprets music visualization through my own mathematical, generative, and algorithmic frameworks. All code, interaction logic, and data mappings were developed from scratch.
+While these works planted the seed of inspiration, **Aroma of the Songs** reinterprets music visualization through my own mathematical, generative and algorithmic frameworks. All code, interaction logic and data mappings were developed from scratch.
 
 #### Surprise your friends
 

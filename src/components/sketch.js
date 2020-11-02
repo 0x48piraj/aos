@@ -375,6 +375,7 @@ function audioMetadata(file, callback) {
 
   reader.onload = function() {
     const dv = new jDataView(this.result);
+    const len = dv.byteLength;
     let title = "", artist = "", album = "", year = "";
 
     // check for ID3v2
@@ -405,11 +406,137 @@ function audioMetadata(file, callback) {
     // fallback to ID3v1
     // "TAG" starts at byte -128 from EOF.
     // See http://en.wikipedia.org/wiki/ID3
-    else if (dv.getString(3, dv.byteLength - 128) === "TAG") {
-      title  = dv.getString(30, dv.byteLength - 125).trim();
-      artist = dv.getString(30, dv.byteLength - 95).trim();
-      album  = dv.getString(30, dv.byteLength - 65).trim();
-      year  = dv.getString(4, dv.byteLength - 35).trim();
+    else if (dv.getString(3, len - 128) === "TAG") {
+      title = dv.getString(30, len - 125).trim();
+      artist = dv.getString(30, len - 95).trim();
+      album = dv.getString(30, len - 65).trim();
+      year = dv.getString(4, len - 35).trim();
+    }
+
+    // check for RIFF INFO chunk
+    else if (dv.getString(4, 0) === "RIFF" && dv.getString(4, 8) === "WAVE") {
+      try {
+        let offset = 12;
+        while (offset + 8 < len) {
+          const chunkID = dv.getString(4, offset);
+          const chunkSize = dv.getUint32(offset + 4, true);
+          offset += 8;
+          if (chunkID === "LIST" && offset + 4 < len) {
+            const listType = dv.getString(4, offset);
+            if (listType === "INFO") {
+              let infoOffset = offset + 4;
+              const infoEnd = Math.min(offset + chunkSize, len);
+              while (infoOffset + 8 < infoEnd) {
+                const infoID = dv.getString(4, infoOffset);
+                const infoSize = dv.getUint32(infoOffset + 4, true);
+                infoOffset += 8;
+                if (infoOffset + infoSize > infoEnd) break;
+                const value = dv.getString(infoSize, infoOffset).replace(/\0/g, '').trim();
+                if (infoID === "INAM") title = value;
+                else if (infoID === "IART") artist = value;
+                else if (infoID === "IPRD") album = value;
+                else if (infoID === "ICRD") year = value;
+                infoOffset += infoSize;
+              }
+              break;
+            }
+          }
+          offset += chunkSize;
+        }
+      } catch (e) {
+        console.warn("WAV metadata parsing failed:", e);
+      }
+    }
+
+    // check for vorbis/opus/flac comments
+    else if (dv.getString(4, 0) === "OggS" || dv.getString(4, 0) === "fLaC") {
+      let offset = -1;
+      let foundComment = false;
+      const searchLimit = Math.min(len - 16, 65536);
+
+      if (dv.getString(4, 0) === "OggS") {
+        for (let i = 0; i < searchLimit; i++) {
+          // look for vorbis signature: 0x03 + "vorbis"
+          if (dv.getUint8(i) === 0x03) {
+            try {
+              const sig = dv.getString(6, i + 1);
+              if (sig === "vorbis") {
+                offset = i + 7; // skip packet type + "vorbis"
+                foundComment = true;
+                break;
+              }
+            } catch (e) { continue; }
+          }
+          // look for opus tags signature
+          if (i + 8 < len) {
+            try {
+              const sig = dv.getString(8, i);
+              if (sig === "OpusTags") {
+                offset = i + 8;
+                foundComment = true;
+                break;
+              }
+            } catch (e) { continue; }
+          }
+        }
+      }
+
+      // handle FLAC container
+      else if (dv.getString(4, 0) === "fLaC") {
+        try {
+          offset = 4;
+          while (offset + 4 < len) {
+            const header = dv.getUint8(offset);
+            const isLast = (header & 0x80) !== 0;
+            const type = header & 0x7F;
+            const size = (dv.getUint8(offset + 1) << 16) | (dv.getUint8(offset + 2) << 8) | dv.getUint8(offset + 3);
+            offset += 4;
+            if (type === 4 && offset + 8 < len) { // vorbis comment block
+              foundComment = true;
+              break;
+            }
+            offset += size;
+            if (isLast) break;
+          }
+        } catch (e) {
+          console.warn("FLAC metadata scanning failed:", e);
+        }
+      }
+
+      // parse the vorbis/opus/flac comments
+      if (foundComment && offset > 0 && offset + 8 < len) {
+        try {
+          const vendorLength = dv.getUint32(offset, true);
+          offset += 4 + vendorLength;
+
+          if (offset + 4 < len) {
+            const commentCount = dv.getUint32(offset, true);
+            offset += 4;
+
+            for (let i = 0; i < commentCount && offset + 4 < len; i++) {
+              const clen = dv.getUint32(offset, true);
+              offset += 4;
+              if (offset + clen > len) break;
+
+              const raw = dv.getString(clen, offset);
+              offset += clen;
+
+              const eqPos = raw.indexOf("=");
+              if (eqPos === -1) continue;
+
+              const key = raw.substring(0, eqPos).toUpperCase();
+              const value = raw.substring(eqPos + 1).trim();
+
+              if (key === "TITLE") title = value;
+              else if (key === "ARTIST") artist = value;
+              else if (key === "ALBUM") album = value;
+              else if (key === "DATE" || key === "YEAR") year = value;
+            }
+          }
+        } catch (e) {
+          console.warn("Vorbis/Opus/FLAC comment parsing failed:", e);
+        }
+      }
     }
 
     // ultimate fallback if nothing was found
@@ -425,7 +552,24 @@ function audioMetadata(file, callback) {
 }
 
 function preload() {
-  song = loadSound('/assets/audio/defaultSong.mp3'); // default song
+  song = loadSound(
+    '/assets/audio/defaultSong.mp3', // default song
+    () => {  // success callback
+      const defaultMeta = {
+        title: "Breaking Bad [Remix]",
+        artist: "MetroGnome",
+        album: "Untitled",
+        year: "2013"
+      };
+      songMetadata = defaultMeta;
+
+      // UI feedback
+      DOM.setText(DOM.loadInfo, `${defaultMeta.title || "Untitled"} by ${defaultMeta.artist || "Unknown Artist"}`);
+    },
+    () => {  // error callback
+      alert("Error loading this file. Please try another audio format.");
+    }
+  );
 }
 
 function isAudioFile(file) {
@@ -442,12 +586,12 @@ function isAudioFile(file) {
 
   // fallback by extension
   const name = (file.name || "").toLowerCase();
-  return /\.(mp3|wav|ogg|m4a|flac|aac|webm)$/.test(name);
+  return /\.(mp3|wav|ogg|flac|opus)$/.test(name);
 }
 
 function handleFile(file) {
   if (!isAudioFile(file)) {
-    alert("Please upload a valid audio file (mp3, wav, ogg).");
+    alert("Please upload a valid audio file (mp3, wav, ogg, opus).");
     return;
   }
 
@@ -465,7 +609,7 @@ function handleFile(file) {
         songMetadata = meta;
 
         // UI feedback
-        DOM.setText(DOM.loadInfo, `Now playing: ${meta.title || "Untitled"} by ${meta.artist || "Unknown Artist"}`);
+        DOM.setText(DOM.loadInfo, `${meta.title || "Untitled"} by ${meta.artist || "Unknown Artist"}`);
 
         DOM.show(DOM.toggler, 'block'); // show the toggle btn
         setPlayUI(false); // ensure PLAY state

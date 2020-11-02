@@ -693,15 +693,42 @@ p {
   background-color: #111;
 }
 
-.load-info {
+.now-playing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   color: #00E676;
   font-size: 0.9rem;
   opacity: 0.85;
   margin-top: 0.5rem;
-  white-space: nowrap;
+  width: 100%;
+}
+
+.now-playing .label {
+  flex-shrink: 0;
+}
+
+.info-container {
+  position: relative;
   overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+  color: #00E676;
+  max-width: 70%;
+  height: 1.2em;
+}
+
+.load-info {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-text 10s linear infinite;
+}
+
+@keyframes scroll-text {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 .custom {
